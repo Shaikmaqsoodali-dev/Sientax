@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
+import { PageHero } from '@/components/page-hero'
+import { CtaBanner } from '@/components/cta-banner'
 import { FaqAccordion, type FaqItem } from '@/components/faq-accordion'
 
 export const metadata: Metadata = {
@@ -19,6 +20,35 @@ const faqs: FaqItem[] = [
   ['How experienced is the team?', "With over 30 years of experience, Sientax's consultants are well-versed in complex tax matters."],
   ['Can you represent me in a tax audit?', 'Yes. Our experts handle communication with the IRS on your behalf, manage documentation, and guide you through every stage of the audit process.'],
   ['Do you work with CPA and accounting firms?', 'Yes. Our CPA Collaboration Hub lets accounting professionals extend their capacity with a reliable tax advisory partner. Learn more on the CPA Hub page.'],
+  ['What do I need to get started?', 'To get started, we typically ask clients to share their basic financial information, prior-year tax returns if available, and supporting documents such as W-2s and 1099s. We will guide you through any missing information step by step.'],
+  ['Can you file taxes in any state?', 'Yes. We are authorized to electronically file tax returns across all 50 U.S. states, handling both federal and state obligations together.'],
+  ['What happens if my previous return had an error?', 'If a prior return contains errors, we can file an accurate amendment. Our team reviews the original return, identifies what needs correcting, and prepares the amended return with clear documentation.'],
+  ['Do you support payroll beyond filing?', 'Yes. Our payroll service covers ongoing administration, compliance support, and year-end forms such as W-2s and 941s.'],
+  ['Is the initial consultation really free?', 'Yes. Every new engagement starts with a free initial consultation, where we assess your situation and outline how we can help.'],
+]
+
+const contacts = [
+  {
+    title: 'Call us',
+    text: 'Speak with a tax advisor directly about your situation.',
+    action: 'Start a call',
+    href: 'tel:+18005550199',
+    icon: 'phone',
+  },
+  {
+    title: 'Email us',
+    text: 'Send your questions and documents safely through our secure portal.',
+    action: 'Send a message',
+    href: 'mailto:support@sientax.com',
+    icon: 'mail',
+  },
+  {
+    title: 'Book online',
+    text: 'Pick a time that suits you and secure your free consultation.',
+    action: 'Book a consultation',
+    href: '/contact',
+    icon: 'calendar',
+  },
 ]
 
 export default function FaqPage() {
@@ -26,37 +56,82 @@ export default function FaqPage() {
     <main className="site-shell">
       <SiteHeader />
 
-      <section className="inner-hero">
-        <p className="eyebrow">Your questions answered</p>
-        <h1>Get informed <em>now.</em></h1>
-        <p>Answers to the questions we hear most often. Can&apos;t find what you&apos;re looking for? Get in touch with our team and we will gladly help out.</p>
-      </section>
+      <PageHero
+        eyebrow="Your questions answered"
+        title={
+          <>
+            Get informed <em>now.</em>
+          </>
+        }
+        lead="Answers to the questions we hear most often. Can’t find what you’re looking for? Get in touch with our team and we will gladly help out."
+        image={{ src: '/photos/finance-analytics.jpg', alt: 'Financial reports and analytics on a desk' }}
+      />
 
-      <section className="faq section">
-        <div className="faq-intro reveal reveal-left">
-          <p className="eyebrow">Need more help?</p>
-          <h2>Talk to an <em>expert.</em></h2>
-          <p>Every financial situation is different. If your question is not covered here, our advisors are ready to help.</p>
-          <Link href="/contact" className="text-arrow">Ask our team <ArrowUpRight size={17} /></Link>
-          <div className="page-image faq-image">
-            <Image src="/photos/finance-analytics.jpg" alt="Financial reports and analytics on a desk" fill sizes="(max-width: 800px) 100vw, 30vw" />
+      <section className="section section--paper">
+        <div className="faq-block">
+          <div className="container">
+            <div className="faq-intro-block">
+              <p className="eyebrow">FAQ</p>
+              <h2>
+                Frequently asked <em>questions.</em>
+              </h2>
+              <p>Answers to the questions we hear most often about Sientax services, consultations, documents, and experience.</p>
+            </div>
+            <FaqAccordion items={faqs} columns={2} defaultOpen={0} />
           </div>
         </div>
-        <FaqAccordion
-          items={faqs}
-          description="Can't find what you're looking for? Get in touch with our team and we will gladly help out."
-        />
       </section>
 
-      <section className="cta section reveal reveal-up">
-        <div>
-          <p className="eyebrow">Ready when you are</p>
-          <h2>Take the next step toward <em>financial clarity.</em></h2>
+      <section className="section">
+        <div className="container">
+          <div className="section-head section-head--center reveal reveal-up">
+            <p className="eyebrow">Still have questions</p>
+            <h2>
+              We&apos;re here when you <em>need us.</em>
+            </h2>
+            <p>Every financial situation is different — a human advisor is the fastest way to get a useful answer.</p>
+          </div>
+          <div className="contact-strip stagger">
+            {contacts.map(c => (
+              <a href={c.href} className="strip-card" key={c.title}>
+                <span className="check-icon">{c.icon === 'phone' ? <PhoneIcon /> : c.icon === 'mail' ? <MailIcon /> : <CalendarIcon />}</span>
+                <h3>{c.title}</h3>
+                <p>{c.text}</p>
+                <span className="strip-action">
+                  {c.action} <ArrowRight size={15} />
+                </span>
+              </a>
+            ))}
+          </div>
         </div>
-        <Link href="/contact" className="button button-green">Let&apos;s get in touch <ArrowUpRight size={17} /></Link>
       </section>
+
+      <CtaBanner
+        eyebrow="Ready when you are"
+        title="Take the next step toward <em>financial clarity.</em>"
+        label="Let&apos;s get in touch"
+        href="/contact"
+      />
 
       <SiteFooter />
     </main>
+  )
+}
+
+function PhoneIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1.05.36 2.06.7 2.97a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.92.57 2.97.7A2 2 0 0 1 22 16.92z" /></svg>
+  )
+}
+
+function MailIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.31 1.31 0 0 1-1.4 0L2 7" /></svg>
+  )
+}
+
+function CalendarIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg>
   )
 }

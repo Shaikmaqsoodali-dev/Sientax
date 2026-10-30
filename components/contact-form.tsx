@@ -1,17 +1,34 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
+
+const services = [
+  'U.S. Individual Tax Filing',
+  'Tax Audit Representation',
+  'Amendment Filing',
+  'Corporate Tax',
+  'Payroll Service',
+  'Personal tax planning',
+  'Business tax planning',
+  'Something else',
+]
 
 export function ContactForm() {
   const [sent, setSent] = useState(false)
 
   if (sent) {
     return (
-      <div className="form-success">
+      <div className="contact-form form-success">
+        <span className="success-icon">
+          <Check size={24} />
+        </span>
         <p className="eyebrow">Message received</p>
-        <h3>Thank you. We&apos;ll be in touch.</h3>
-        <p>We have your information and will follow up soon.</p>
+        <h3>Thank you — we&apos;ll be in touch.</h3>
+        <p>
+          Your message is in. One of our tax experts will reach out shortly to schedule your free
+          consultation at a time that works for you.
+        </p>
       </div>
     )
   }
@@ -24,12 +41,45 @@ export function ContactForm() {
         setSent(true)
       }}
     >
-      <label>Full name<input required name="name" /></label>
-      <label>Email address<input required type="email" name="email" /></label>
-      <label>Phone number<input required name="phone" /></label>
-      <label>How can we help?<textarea required name="message" rows={5} /></label>
-      <label className="checkbox"><input type="checkbox" required /> I understand and agree to the privacy policy.</label>
-      <button className="button button-dark" type="submit">Send inquiry <ArrowUpRight size={17} /></button>
+      <div className="form-row">
+        <label className="field">
+          Full name *
+          <input required name="name" placeholder="Your full name" />
+        </label>
+        <label className="field">
+          Email address *
+          <input required type="email" name="email" placeholder="you@example.com" />
+        </label>
+      </div>
+      <div className="form-row">
+        <label className="field">
+          Phone number
+          <input type="tel" name="phone" placeholder="+1 (800) 555-0199" />
+        </label>
+        <label className="field">
+          Service *
+          <select required name="service" defaultValue="">
+            <option value="" disabled>
+              Select a service
+            </option>
+            {services.map(s => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <label className="field">
+        How can we help? *
+        <textarea required name="message" rows={5} placeholder="Tell us briefly what you need help with." />
+      </label>
+      <p className="form-note">Please do not include sensitive financial information.</p>
+      <label className="consent">
+        <input type="checkbox" required name="consent" />
+        I understand and agree to the privacy policy.
+      </label>
+      <button className="btn btn--green" type="submit">
+        Send inquiry <ArrowRight size={17} />
+      </button>
     </form>
   )
 }

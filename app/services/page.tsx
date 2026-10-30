@@ -1,53 +1,141 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
+import { PageHero } from '@/components/page-hero'
+import { CtaBanner } from '@/components/cta-banner'
 
 export const metadata: Metadata = {
   title: 'Services',
   description: 'U.S. individual tax filing, audit representation, amendment filing, corporate tax, and payroll services for individuals and businesses.',
 }
 
-const services: [string, string, string, string][] = [
-  ['01', 'U.S. Individual Tax Filing', 'Comprehensive tax filing services to ensure compliance and maximize deductions for individuals in the USA.', 'us-individual-tax-filing'],
-  ['02', 'Tax Audit Representation', 'Expert representation to navigate tax audits and protect your financial interests with confidence.', 'tax-audit-representation'],
-  ['03', 'Amendment Filing', 'Correct previous tax returns and optimize your financial situation with accurate amendment filings.', 'amendment-filing'],
-  ['04', 'Corporate Tax', 'Tailored corporate tax solutions designed to optimize your company’s tax liabilities and ensure compliance.', 'corporate-tax'],
-  ['05', 'Payroll Service', 'Efficient and accurate payroll management to keep your business compliant and employees satisfied.', 'payroll-service'],
+const services = [
+  {
+    number: '01',
+    title: 'US Individual Tax Filing',
+    description: 'Comprehensive tax filing services to ensure compliance and maximize deductions for individuals in the USA.',
+    href: '/services/us-individual-tax-filing',
+  },
+  {
+    number: '02',
+    title: 'Tax Audit Representation',
+    description: 'Expert representation to navigate tax audits and protect your financial interests with confidence.',
+    href: '/services/tax-audit-representation',
+  },
+  {
+    number: '03',
+    title: 'Amendment Filing',
+    description: 'Correct previous tax returns and optimize your financial situation with accurate amendment filings.',
+    href: '/services/amendment-filing',
+  },
+  {
+    number: '04',
+    title: 'Corporate Tax',
+    description: "Tailored corporate tax solutions designed to optimize your company's tax liabilities and ensure compliance.",
+    href: '/services/corporate-tax',
+  },
+  {
+    number: '05',
+    title: 'Payroll Service',
+    description: 'Efficient and accurate payroll management to keep your business compliant and employees satisfied.',
+    href: '/services/payroll-service',
+  },
 ]
 
 export default function ServicesPage() {
   return (
     <main className="site-shell">
       <SiteHeader />
-      <section className="inner-hero">
-        <p className="eyebrow">What we do</p>
-        <h1>Our services and <em>solutions.</em></h1>
-        <p>At Sientax, we offer a range of tax-related services designed to meet the needs of individuals and businesses alike. Whether you need help filing personal taxes or managing your business&apos;s tax liabilities, we&apos;ve got you covered.</p>
-      </section>
-      <section className="media-band">
-        <div className="page-image reveal reveal-scale">
-          <Image src="/photos/tax-documents.jpg" alt="Tax documents and a calculator prepared for filing" fill sizes="(max-width: 1240px) 100vw, 1180px" />
+
+      <PageHero
+        eyebrow="What we do"
+        title={
+          <>
+            Our services and <em>solutions.</em>
+          </>
+        }
+        lead="At Sientax, we offer a range of tax-related services designed to meet the needs of individuals and businesses alike. Whether you need help filing personal taxes or managing your business's tax liabilities, we have you covered."
+        image={{ src: '/photos/tax-documents.jpg', alt: 'Tax documents and a calculator prepared for filing' }}
+      />
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head reveal reveal-up">
+            <div>
+              <p className="eyebrow">Everything we handle</p>
+              <h2>
+                Tax support for every <em>stage.</em>
+              </h2>
+            </div>
+            <p>Every engagement is staffed by senior advisors — never junior support alone.</p>
+          </div>
+          <div className="svc-grid">
+            {services.map((s, i) => (
+              <Link href={s.href} className="svc-card" key={s.number}>
+                <div className="svc-card-top">
+                  <span className="svc-card-num">{s.number}</span>
+                  <span className="svc-card-arrow">
+                    <ArrowUpRight size={17} />
+                  </span>
+                </div>
+                <h3>{s.title}</h3>
+                <p>{s.description}</p>
+                <span className="link-arrow">
+                  Explore service <ArrowRight size={15} />
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
-      <section className="services service-page-list stagger">
-        {services.map(([n, t, d, s]) => (
-          <Link href={`/services/${s}`} className="service-row reveal reveal-up" key={n}>
-            <span className="service-number">{n}</span>
-            <div><h3>{t}</h3><p>{d}</p></div>
-            <span className="service-link">Explore service <ArrowUpRight size={17} /></span>
-          </Link>
-        ))}
-      </section>
-      <section className="cta section reveal reveal-up">
-        <div>
-          <p className="eyebrow">Start with a conversation</p>
-          <h2>Take the next step toward <em>financial clarity.</em></h2>
+
+      <section className="section">
+        <div className="band reveal reveal-scale">
+          <Image src="https://res.cloudinary.com/qxjpbgh6/image/upload/v1793362790/accountant-making-calculations-office.jpg" alt="An accountant making tax calculations in the office" fill sizes="(max-width: 1240px) 100vw, 70vw" />
+          <div className="band-note">
+            <span>Tax data</span>
+            <strong>In good hands.</strong>
+          </div>
         </div>
-        <Link href="/contact" className="button button-green">Free consultation <ArrowUpRight size={17} /></Link>
       </section>
+
+      <section className="section section--paper">
+        <div className="container">
+          <div className="split">
+            <div className="split-head reveal reveal-left">
+              <p className="eyebrow">Who we help</p>
+              <h2>
+                Individuals. Businesses. <em>Founders.</em>
+              </h2>
+            </div>
+            <div className="split-copy reveal reveal-right">
+              <p>
+                From sole proprietors and freelancers to growing companies and established practices,
+                our advisors meet clients where they are — and then guide them forward with clear,
+                practical tax strategy.
+              </p>
+              <p>
+                Our CPA Collaboration Hub also lets trusted accounting professionals refer clients to us
+                as their dedicated tax advisory partner.
+              </p>
+              <Link href="/cpa-collaboration" className="btn btn--green">
+                Learn about the CPA Hub <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <CtaBanner
+        eyebrow="Start with a conversation"
+        title="Not sure which service fits? <em>Let&apos;s talk it through.</em>"
+        label="Book your free consultation"
+        href="/contact"
+      />
+
       <SiteFooter />
     </main>
   )
