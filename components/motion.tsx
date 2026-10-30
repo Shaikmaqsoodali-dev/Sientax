@@ -39,14 +39,12 @@ export function MotionProvider() {
       root.classList.add('motion-live')
     }
 
-    const header = document.querySelector<HTMLElement>('.site-header')
     const progress = document.querySelector<HTMLElement>('.scroll-progress')
     let frame = 0
     const onScroll = () => {
       if (frame) return
       frame = requestAnimationFrame(() => {
         frame = 0
-        header?.classList.toggle('is-scrolled', window.scrollY > 12)
         if (!progress) return
         const max = document.documentElement.scrollHeight - window.innerHeight
         progress.style.transform = `scaleX(${max > 0 ? Math.min(window.scrollY / max, 1) : 0})`
