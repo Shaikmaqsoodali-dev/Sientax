@@ -5,7 +5,6 @@ import { ArrowUpRight, Check } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { FaqAccordion, type FaqItem } from '@/components/faq-accordion'
-import { Button as MovingBorderButton } from '@/components/ui/moving-border'
 
 export const metadata: Metadata = {
   title: { absolute: 'Sientax | Simplifying Taxation' },
@@ -43,7 +42,7 @@ export default function Home() {
           <p className="eyebrow"><span className="eyebrow-line" /> Sientax — Simplifying Taxation</p>
           <h1>Your trusted partner in <em>tax solutions.</em></h1>
           <p className="hero-sub">Simplifying taxes for individuals and businesses across the USA.</p>
-          <MovingBorderButton href="/contact" className="button button-green" borderRadius="0.35rem" glow="#14241f">Start the process <ArrowUpRight size={17} /></MovingBorderButton>
+          <Link href="/contact" className="button button-green">Start the process <ArrowUpRight size={17} /></Link>
           <div className="trust-points"><span><Check size={15} /> Proven results</span><span><Check size={15} /> Expert trust</span><span><Check size={15} /> Ongoing support</span></div>
         </div>
         <div className="hero-media"><Image src="/sientax-hero.png" alt="Tax advisor reviewing documents with a business owner" fill priority sizes="(max-width: 900px) 100vw, 50vw" /><div className="hero-note"><span>01</span><p>Clear guidance.<br /><strong>Confident decisions.</strong></p></div></div>
