@@ -74,7 +74,7 @@ export function SiteHeader() {
       <div className="header-inner">
         <Link href="/" className="logo-link" aria-label="Sientax home">
           <img
-            src="/sientax-logo.webp"
+            src="/Sientax-Logo-2024-01-1.webp"
             alt="Sientax"
             width={157}
             height={39}
