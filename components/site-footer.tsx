@@ -17,7 +17,14 @@ export function SiteFooter() {
       <div className="footer-main reveal reveal-up">
         <div>
           <Link href="/" className="footer-logo" aria-label="Sientax home">
-            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Sientax-Logo-2024-01-1-eWrlrPsSyJNiyMZDG3M4MtQTNfSxYs.webp" alt="Sientax" />
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Sientax-Logo-2024-01-1-eWrlrPsSyJNiyMZDG3M4MtQTNfSxYs.webp"
+              alt="Sientax"
+              width={157}
+              height={39}
+              loading="lazy"
+              decoding="async"
+            />
           </Link>
           <p>Clear, reliable tax and accounting support for individuals and businesses across the USA.</p>
         </div>
