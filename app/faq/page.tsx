@@ -118,7 +118,7 @@ export default function FaqPage() {
 
       <CtaBanner
         eyebrow="Ready when you are"
-        title="Take the next step toward <em>financial clarity.</em>"
+        title={<>Take the next step toward <em>financial clarity.</em></>}
         label="Let&apos;s get in touch"
         href="/contact"
       />

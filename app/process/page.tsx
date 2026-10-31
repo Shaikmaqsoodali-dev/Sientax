@@ -97,7 +97,7 @@ export default function ProcessPage() {
 
       <CtaBanner
         eyebrow="Start with a conversation"
-        title="Ready to take the next step toward <em>financial clarity.</em>"
+        title={<>Ready to take the next step toward <em>financial clarity.</em></>}
         label="Free consultation"
         href="/contact"
       />
