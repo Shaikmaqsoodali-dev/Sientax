@@ -5,7 +5,7 @@ import { ArrowRight, ArrowUpRight, Check, Play, Star, User, MessagesSquare, Shie
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { CtaBanner } from '@/components/cta-banner'
-import { FaqAccordion } from '@/components/faq-accordion'
+import { FaqAccordion, type FaqItem } from '@/components/faq-accordion'
 import { ServicesAccordion } from '@/components/services-accordion'
 import { Stats } from '@/components/stats'
 
@@ -118,8 +118,8 @@ const plans = [
     pill: 'Free consultation',
     title: 'For individuals & families',
     href: '/services/us-individual-tax-filing',
-    src: '/photos/tax-documents.jpg',
-    alt: 'Tax documents and a calculator prepared for filing',
+    src: '/photos/laptop-desk-still-life.jpg',
+    alt: 'High-angle view of a laptop and desk setup prepared for individual tax filing',
     features: ['Tax planning & preparation', 'E-filing across all 50 states', 'Year-round support'],
     cta: 'Explore individual tax',
   },
@@ -128,14 +128,14 @@ const plans = [
     pill: 'Free consultation',
     title: 'For your business & team',
     href: '/services/corporate-tax',
-    src: '/photos/office-space.jpg',
-    alt: 'A modern business office where corporate tax planning takes place',
+    src: '/photos/laptop-wooden-cubes.jpg',
+    alt: 'A laptop arranged with wooden cubes, representing structured business tax planning',
     features: ['Corporate tax compliance & planning', 'Payroll and year-end forms', 'Audit representation when needed'],
     cta: 'Explore business tax',
   },
 ]
 
-const homeFaqs = [
+const homeFaqs: FaqItem[] = [
   ['What services does Sientax provide?', 'Sientax offers U.S. tax filing, tax audit assistance, amendments, payroll services, and personalized tax planning for individuals and businesses.'],
   ["Who can benefit from Sientax's services?", 'Sientax is ideal for individuals, small businesses, freelancers, and anyone needing tax support in the U.S.'],
   ['How do I schedule a consultation?', "You can book a consultation via Sientax's website, where they offer a free initial consultation."],
@@ -300,7 +300,7 @@ export default function Home() {
               </Link>
             </div>
             <div className="expect-media reveal reveal-right">
-              <Image src="/photos/advisor-meeting.jpg" alt="Sientax tax advisor reviewing documents with a client" fill sizes="(max-width: 900px) 100vw, 45vw" />
+              <Image src="/photos/man-with-laptop.jpg" alt="A client working on a laptop during a remote tax consultation" fill sizes="(max-width: 900px) 100vw, 45vw" />
               <Link href="/process" className="play-btn" aria-label="See how we work">
                 <Play size={26} fill="currentColor" />
               </Link>

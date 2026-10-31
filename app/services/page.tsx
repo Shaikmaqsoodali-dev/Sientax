@@ -58,7 +58,7 @@ export default function ServicesPage() {
           </>
         }
         lead="At Sientax, we offer a range of tax-related services designed to meet the needs of individuals and businesses alike. Whether you need help filing personal taxes or managing your business's tax liabilities, we have you covered."
-        image={{ src: '/photos/tax-documents.jpg', alt: 'Tax documents and a calculator prepared for filing' }}
+        image={{ src: '/photos/tax-planning-workspace.png', alt: 'A modern tax planning workspace with a laptop and documents' }}
       />
 
       <section className="section">

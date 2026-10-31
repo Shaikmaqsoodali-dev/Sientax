@@ -31,12 +31,12 @@ export default function AboutPage() {
           </>
         }
         lead="We believe in building lasting relationships with our clients by offering personalized strategies that fit your unique financial needs, ensuring maximum benefits and peace of mind."
-        image={{ src: '/photos/team-collab.jpg', alt: 'The Sientax team collaborating around a table' }}
+        image={{ src: '/photos/hands-computer-desk.jpg', alt: 'Aerial view of hands working at a computer on a clean white office desk' }}
       />
 
       <section className="section">
         <div className="band reveal reveal-scale">
-          <Image src="/photos/advisor-meeting.jpg" alt="The Sientax team reviewing documents together" fill sizes="(max-width: 1240px) 100vw, 60vw" />
+          <Image src="/photos/advisor-meeting.jpg" alt="Sientax advisors reviewing client documents together" fill sizes="(max-width: 1240px) 100vw, 60vw" />
           <div className="band-note">
             <span>One team</span>
             <strong>Shared standards.</strong>
