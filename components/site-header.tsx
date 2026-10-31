@@ -13,6 +13,12 @@ const services: [string, string, string][] = [
   ['Payroll Service', 'Accurate payroll, every cycle', '/services/payroll-service'],
 ]
 
+const refundStatus: [string, string][] = [
+  ['Federal', 'https://www.irs.gov/wheres-my-refund'],
+  ['Amendment', 'https://www.irs.gov/filing/wheres-my-amended-return'],
+  ['Federal & State Payments', 'https://www.irs.gov/refunds'],
+]
+
 const links: [string, string][] = [
   ['Home', '/'],
   ['About', '/about'],
@@ -25,6 +31,7 @@ const links: [string, string][] = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [refundOpen, setRefundOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
   const toggleRef = useRef<HTMLButtonElement>(null)
@@ -40,20 +47,22 @@ export function SiteHeader() {
   useEffect(() => {
     setOpen(false)
     setMenuOpen(false)
+    setRefundOpen(false)
   }, [pathname])
 
   // Close on Escape and return focus to the toggle button.
   useEffect(() => {
-    if (!open && !menuOpen) return
+    if (!open && !menuOpen && !refundOpen) return
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
       setOpen(false)
       setMenuOpen(false)
+      setRefundOpen(false)
       toggleRef.current?.focus()
     }
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
-  }, [open, menuOpen])
+  }, [open, menuOpen, refundOpen])
 
   // Lock body scroll while the mobile menu is open.
   useEffect(() => {
@@ -147,6 +156,35 @@ export function SiteHeader() {
               {label}
             </Link>
           ))}
+
+          <div className={`nav-item nav-item--edge${refundOpen ? ' is-open' : ''}`}>
+            <button
+              type="button"
+              className="nav-link nav-trigger nav-link--underline"
+              aria-expanded={refundOpen}
+              aria-haspopup="true"
+              onClick={() => setRefundOpen(v => !v)}
+            >
+              Refund Status <ChevronDown size={15} />
+            </button>
+            <div className="nav-menu nav-menu--compact">
+              {refundStatus.map(([label, href]) => (
+                <a
+                  href={href}
+                  className="nav-menu-link"
+                  key={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    setRefundOpen(false)
+                    setOpen(false)
+                  }}
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
+          </div>
 
           <div className="mobile-actions">
             <Link href="/contact" className="btn btn--green" onClick={() => setOpen(false)}>

@@ -264,6 +264,22 @@ html { scrollbar-width: thin; scrollbar-color: #c9c7ba var(--paper); }
   z-index: 70;
 }
 .nav-item:hover .nav-menu, .nav-item:focus-within .nav-menu, .nav-item.is-open .nav-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+/* Refund Status dropdown: always-underlined trigger, compact panel aligned to the trigger's left edge. */
+.nav-link--underline::after {
+  content: '';
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--lime-deep);
+}
+.nav-menu--compact { width: 272px; padding: 8px; }
+.nav-menu--compact .nav-menu-link { font-size: 15.5px; padding: 13px 14px; }
+.nav-item--edge .nav-menu { left: 0; transform: translateX(0) translateY(10px); }
+.nav-item--edge:hover .nav-menu, .nav-item--edge:focus-within .nav-menu, .nav-item--edge.is-open .nav-menu { transform: translateX(0) translateY(0); }
 .nav-menu-head {
   display: block;
   padding: 10px 14px 12px;
@@ -1201,6 +1217,8 @@ a.strip-card:hover .strip-action svg { transform: translateX(4px); }
     transition: none;
   }
   .nav-item.is-open .nav-menu { display: block; transform: none; }
+  .nav-item--edge .nav-menu, .nav-item--edge:hover .nav-menu, .nav-item--edge:focus-within .nav-menu, .nav-item--edge.is-open .nav-menu { transform: none; }
+  .nav-link--underline::after { display: none; }
   .nav-menu-head { display: none; }
   .nav-menu-link { padding: 12px 0 12px 16px; font-size: 15.5px; border-bottom: 0; border-radius: 0; }
   .nav-menu-foot { display: none; }
