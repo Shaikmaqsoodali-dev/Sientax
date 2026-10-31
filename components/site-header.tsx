@@ -1,30 +1,30 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, ArrowRight, ArrowUpRight, ChevronDown, Home, User, Briefcase, Mail, MessageCircle, HelpCircle, Phone, Handshake, FileText, RotateCcw, Banknote, ShieldAlert, Building2, CreditCard } from 'lucide-react'
+import { Menu, X, ArrowRight, ArrowUpRight, ChevronDown } from 'lucide-react'
 
-const services: { label: string; hint: string; href: string; icon: React.ElementType }[] = [
-  { label: 'US Individual Tax Filing', hint: 'Personal returns, filed with care', href: '/services/us-individual-tax-filing', icon: User },
-  { label: 'Tax Audit Representation', hint: 'Professional support before the IRS', href: '/services/tax-audit-representation', icon: ShieldAlert },
-  { label: 'Amendment Filing', hint: 'Correct and refile past returns', href: '/services/amendment-filing', icon: RotateCcw },
-  { label: 'Corporate Tax', hint: 'Compliant, optimized business tax', href: '/services/corporate-tax', icon: Building2 },
-  { label: 'Payroll Service', hint: 'Accurate payroll, every cycle', href: '/services/payroll-service', icon: CreditCard },
+const services: [string, string, string][] = [
+  ['US Individual Tax Filing', 'Personal returns, filed with care', '/services/us-individual-tax-filing'],
+  ['Tax Audit Representation', 'Professional support before the IRS', '/services/tax-audit-representation'],
+  ['Amendment Filing', 'Correct and refile past returns', '/services/amendment-filing'],
+  ['Corporate Tax', 'Compliant, optimized business tax', '/services/corporate-tax'],
+  ['Payroll Service', 'Accurate payroll, every cycle', '/services/payroll-service'],
 ]
 
-const refundStatus: { label: string; href: string; icon: React.ElementType }[] = [
-  { label: 'Federal', href: 'https://www.irs.gov/wheres-my-refund', icon: FileText },
-  { label: 'Amendment', href: 'https://www.irs.gov/filing/wheres-my-amended-return', icon: RotateCcw },
-  { label: 'Federal & State Payments', href: 'https://www.irs.gov/refunds', icon: Banknote },
+const refundStatus: [string, string][] = [
+  ['Federal', 'https://www.irs.gov/wheres-my-refund'],
+  ['Amendment', 'https://www.irs.gov/filing/wheres-my-amended-return'],
+  ['Federal & State Payments', 'https://www.irs.gov/refunds'],
 ]
 
-const links: { label: string; href: string; icon?: React.ElementType }[] = [
-  { label: 'Home', href: '/', icon: Home },
-  { label: 'About', href: '/about', icon: User },
-  { label: 'How we work', href: '/process', icon: Briefcase },
-  { label: 'CPA Hub', href: '/cpa-collaboration', icon: Handshake },
-  { label: 'FAQ', href: '/faq', icon: HelpCircle },
+const links: [string, string][] = [
+  ['Home', '/'],
+  ['About', '/about'],
+  ['How we work', '/process'],
+  ['CPA Hub', '/cpa-collaboration'],
+  ['FAQ', '/faq'],
 ]
 
 export function SiteHeader() {
@@ -103,7 +103,7 @@ export function SiteHeader() {
             aria-current={isActive('/') ? 'page' : undefined}
             onClick={() => setOpen(false)}
           >
-            <Home size={15} /> Home
+            Home
           </Link>
           <Link
             href="/about"
@@ -111,7 +111,7 @@ export function SiteHeader() {
             aria-current={isActive('/about') ? 'page' : undefined}
             onClick={() => setOpen(false)}
           >
-            <User size={15} /> About
+            About
           </Link>
 
           <div className={`nav-item${menuOpen ? ' is-open' : ''}`}>
@@ -129,11 +129,8 @@ export function SiteHeader() {
                 <strong>Services</strong>
                 <span>Tax support for individuals and businesses.</span>
               </span>
-              {services.map(({ label, hint, href, icon: Icon }) => (
+              {services.map(([label, hint, href]) => (
                 <Link href={href} className="nav-menu-link" key={href} onClick={() => setOpen(false)}>
-                  <span className="nav-menu-link-icon">
-                    <Icon size={15} />
-                  </span>
                   <span>
                     {label}
                     <small>{hint}</small>
@@ -147,7 +144,7 @@ export function SiteHeader() {
             </div>
           </div>
 
-          {links.map(({ label, href, icon: Icon }) => (
+          {links.map(([label, href]) => (
             <Link
               href={href}
               className={isActive(href) ? 'nav-link is-active' : 'nav-link'}
@@ -155,7 +152,6 @@ export function SiteHeader() {
               onClick={() => setOpen(false)}
               key={href}
             >
-              {Icon && <Icon size={15} />}
               {label}
             </Link>
           ))}
@@ -171,7 +167,7 @@ export function SiteHeader() {
               Refund Status <ChevronDown size={15} />
             </button>
             <div className="nav-menu nav-menu--compact">
-              {refundStatus.map(({ label, href, icon: Icon }) => (
+              {refundStatus.map(([label, href]) => (
                 <a
                   href={href}
                   className="nav-menu-link"
@@ -183,7 +179,7 @@ export function SiteHeader() {
                     setOpen(false)
                   }}
                 >
-                  <Icon size={14} /> {label}
+                  {label}
                 </a>
               ))}
             </div>
@@ -195,7 +191,7 @@ export function SiteHeader() {
             aria-current={isActive('/contact') ? 'page' : undefined}
             onClick={() => setOpen(false)}
           >
-            <Mail size={15} /> Contact
+            Contact
           </Link>
 
           <div className="mobile-actions">
@@ -203,8 +199,8 @@ export function SiteHeader() {
               Book a free consultation <ArrowRight size={16} />
             </Link>
             <div className="mobile-contact">
-              <a href="tel:+18005550199"><Phone size={15} /> +1 (800) 555-0199</a>
-              <a href="mailto:support@sientax.com"><Mail size={15} /> support@sientax.com</a>
+              <a href="tel:+18005550199">+1 (800) 555-0199</a>
+              <a href="mailto:support@sientax.com">support@sientax.com</a>
             </div>
           </div>
         </nav>
