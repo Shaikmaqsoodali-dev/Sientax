@@ -25,7 +25,6 @@ const links: [string, string][] = [
   ['How we work', '/process'],
   ['CPA Hub', '/cpa-collaboration'],
   ['FAQ', '/faq'],
-  ['Contact', '/contact'],
 ]
 
 export function SiteHeader() {
@@ -145,7 +144,7 @@ export function SiteHeader() {
             </div>
           </div>
 
-          {links.slice(2).map(([label, href]) => (
+          {links.map(([label, href]) => (
             <Link
               href={href}
               className={isActive(href) ? 'nav-link is-active' : 'nav-link'}
@@ -185,6 +184,15 @@ export function SiteHeader() {
               ))}
             </div>
           </div>
+
+          <Link
+            href="/contact"
+            className={isActive('/contact') ? 'nav-link is-active' : 'nav-link'}
+            aria-current={isActive('/contact') ? 'page' : undefined}
+            onClick={() => setOpen(false)}
+          >
+            Contact
+          </Link>
 
           <div className="mobile-actions">
             <Link href="/contact" className="btn btn--green" onClick={() => setOpen(false)}>
