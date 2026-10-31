@@ -20,8 +20,6 @@ const refundStatus: [string, string][] = [
 ]
 
 const links: [string, string][] = [
-  ['Home', '/'],
-  ['About', '/about'],
   ['How we work', '/process'],
   ['CPA Hub', '/cpa-collaboration'],
   ['FAQ', '/faq'],
