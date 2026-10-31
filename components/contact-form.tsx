@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowRight, Check } from 'lucide-react'
+import { ArrowRight, Check, User, Mail, Phone, Briefcase, MessageSquare } from 'lucide-react'
 
 const services = [
   'U.S. Individual Tax Filing',
@@ -43,20 +43,24 @@ export function ContactForm() {
     >
       <div className="form-row">
         <label className="field">
+          <span className="field-icon"><User size={15} /></span>
           Full name *
           <input required name="name" placeholder="Your full name" />
         </label>
         <label className="field">
+          <span className="field-icon"><Mail size={15} /></span>
           Email address *
           <input required type="email" name="email" placeholder="you@example.com" />
         </label>
       </div>
       <div className="form-row">
         <label className="field">
+          <span className="field-icon"><Phone size={15} /></span>
           Phone number
           <input type="tel" name="phone" placeholder="+1 (800) 555-0199" />
         </label>
         <label className="field">
+          <span className="field-icon"><Briefcase size={15} /></span>
           Service *
           <select required name="service" defaultValue="">
             <option value="" disabled>
@@ -69,6 +73,7 @@ export function ContactForm() {
         </label>
       </div>
       <label className="field">
+        <span className="field-icon"><MessageSquare size={15} /></span>
         How can we help? *
         <textarea required name="message" rows={5} placeholder="Tell us briefly what you need help with." />
       </label>

@@ -232,7 +232,9 @@ html { scrollbar-width: thin; scrollbar-color: #c9c7ba var(--paper); }
   transition: color 0.25s ease;
 }
 .nav-link:hover { color: var(--green); }
+.nav-link:hover svg { color: var(--green); }
 .nav-link.is-active { color: var(--green); font-weight: 600; }
+.nav-link svg { color: var(--ink-mute); transition: color 0.25s ease; }
 .nav-link.is-active::after {
   content: '';
   position: absolute;
@@ -888,7 +890,7 @@ html { scrollbar-width: thin; scrollbar-color: #c9c7ba var(--paper); }
 .footer-logo:hover img { transform: scale(1.04); }
 .footer-brand p { color: rgba(255, 255, 255, 0.6); font-size: 15px; line-height: 1.7; max-width: 330px; margin-top: 24px; margin-bottom: 0; }
 .footer-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(24px, 3vw, 36px); }
-.footer-col strong { display: block; font-family: var(--font-display), sans-serif; font-size: 16.5px; font-weight: 600; letter-spacing: -0.02em; color: #fff; margin-bottom: 18px; }
+.footer-col strong { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display), sans-serif; font-size: 16.5px; font-weight: 600; letter-spacing: -0.02em; color: #fff; margin-bottom: 18px; }
 .footer-col a { display: block; color: rgba(255, 255, 255, 0.56); font-size: 14.5px; padding: 7px 0; transition: color 0.25s ease, translate 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 .footer-col a:hover { color: var(--lime); translate: 4px 0; }
 
@@ -1166,6 +1168,115 @@ a.strip-card:hover .strip-action svg { transform: translateX(4px); }
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+/* ============================================================
+   ICON ACCENTS (added for clarity)
+   ============================================================ */
+.stat-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--green);
+  display: grid;
+  place-items: center;
+  margin-bottom: 12px;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.stat:hover .stat-icon { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+.dark-band .stat-icon { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.16); color: var(--lime); }
+
+.expect-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: rgba(217, 242, 39, 0.12);
+  border: 1px solid rgba(217, 242, 39, 0.3);
+  color: var(--lime);
+  display: grid;
+  place-items: center;
+  margin-bottom: 8px;
+}
+
+.plan-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--green);
+  display: grid;
+  place-items: center;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.plan-card:hover .plan-icon { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+
+.hero-strip-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+}
+.hero-strip-icon > svg {
+  width: 34px;
+  height: 34px;
+  padding: 7px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--lime);
+  flex: none;
+}
+.hero-strip a:hover .hero-strip-icon > svg { background: rgba(8, 22, 17, 0.18); color: var(--ink); border-color: transparent; }
+
+.svc-item-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--lime);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.svc-card-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--green);
+  display: inline-grid;
+  place-items: center;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.field-icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--green);
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.step-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--green);
+  display: grid;
+  place-items: center;
+  margin-bottom: 14px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.step-card:hover .step-icon { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+.step-card--dark .step-icon { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.16); color: var(--lime); }
+
 @media (max-width: 1160px) {
   .svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .steps-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }

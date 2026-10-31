@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { Check } from 'lucide-react'
+import { Check, User, Globe, Award, Clock, MapPin, Layers, ShieldCheck } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { PageHero } from '@/components/page-hero'
@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 }
 
 const principles = [
-  ['Personalized Services', 'We tailor our services to fit your unique financial needs, providing a customized approach to tax consulting.'],
-  ['Global Expertise', 'Our team comprises professionals with extensive experience in various jurisdictions, allowing us to cater to a diverse clientele.'],
-  ['Commitment to Excellence', 'We are dedicated to maintaining the highest standards of professionalism and integrity in all our dealings.'],
+  { title: 'Personalized Services', text: 'We tailor our services to fit your unique financial needs, providing a customized approach to tax consulting.', icon: User },
+  { title: 'Global Expertise', text: 'Our team comprises professionals with extensive experience in various jurisdictions, allowing us to cater to a diverse clientele.', icon: Globe },
+  { title: 'Commitment to Excellence', text: 'We are dedicated to maintaining the highest standards of professionalism and integrity in all our dealings.', icon: Award },
 ]
 
 export default function AboutPage() {
@@ -65,10 +65,10 @@ export default function AboutPage() {
 
       <Stats
         items={[
-          { value: 30, suffix: '+', label: 'Years of experience' },
-          { value: 50, label: 'States we e-file in' },
-          { value: 5, label: 'Core service areas' },
-          { value: 100, suffix: '%', label: 'Confidential & secure' },
+          { value: 30, suffix: '+', label: 'Years of experience', icon: 'clock' },
+          { value: 50, label: 'States we e-file in', icon: 'map' },
+          { value: 5, label: 'Core service areas', icon: 'layers' },
+          { value: 100, suffix: '%', label: 'Confidential & secure', icon: 'shield' },
         ]}
       />
 
@@ -81,10 +81,10 @@ export default function AboutPage() {
             </h2>
           </div>
           <div className="checklist reveal reveal-right">
-            {principles.map(([title, text]) => (
+            {principles.map(({ title, text, icon: Icon }) => (
               <div className="check-item" key={title}>
                 <span className="check-icon">
-                  <Check size={18} />
+                  <Icon size={18} />
                 </span>
                 <div>
                   <h3>{title}</h3>

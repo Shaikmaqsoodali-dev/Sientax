@@ -1,7 +1,15 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, ArrowUpRight } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, User, ShieldAlert, RotateCcw, Building2, CreditCard } from 'lucide-react'
+
+const serviceIcons: Record<string, React.ElementType> = {
+  user: User,
+  'shield-alert': ShieldAlert,
+  'rotate-ccw': RotateCcw,
+  building: Building2,
+  'credit-card': CreditCard,
+}
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { PageHero } from '@/components/page-hero'
@@ -18,30 +26,35 @@ const services = [
     title: 'US Individual Tax Filing',
     description: 'Comprehensive tax filing services to ensure compliance and maximize deductions for individuals in the USA.',
     href: '/services/us-individual-tax-filing',
+    icon: 'user',
   },
   {
     number: '02',
     title: 'Tax Audit Representation',
     description: 'Expert representation to navigate tax audits and protect your financial interests with confidence.',
     href: '/services/tax-audit-representation',
+    icon: 'shield-alert',
   },
   {
     number: '03',
     title: 'Amendment Filing',
     description: 'Correct previous tax returns and optimize your financial situation with accurate amendment filings.',
     href: '/services/amendment-filing',
+    icon: 'rotate-ccw',
   },
   {
     number: '04',
     title: 'Corporate Tax',
     description: "Tailored corporate tax solutions designed to optimize your company's tax liabilities and ensure compliance.",
     href: '/services/corporate-tax',
+    icon: 'building',
   },
   {
     number: '05',
     title: 'Payroll Service',
     description: 'Efficient and accurate payroll management to keep your business compliant and employees satisfied.',
     href: '/services/payroll-service',
+    icon: 'credit-card',
   },
 ]
 
@@ -73,21 +86,27 @@ export default function ServicesPage() {
             <p>Every engagement is staffed by senior advisors — never junior support alone.</p>
           </div>
           <div className="svc-grid">
-            {services.map((s, i) => (
-              <Link href={s.href} className="svc-card" key={s.number}>
-                <div className="svc-card-top">
-                  <span className="svc-card-num">{s.number}</span>
-                  <span className="svc-card-arrow">
-                    <ArrowUpRight size={17} />
+            {services.map((s, i) => {
+              const Icon = s.icon ? serviceIcons[s.icon] : null
+              return (
+                <Link href={s.href} className="svc-card" key={s.number}>
+                  <div className="svc-card-top">
+                    <span className="svc-card-num">
+                      {Icon && <span className="svc-card-icon"><Icon size={16} /></span>}
+                      {s.number}
+                    </span>
+                    <span className="svc-card-arrow">
+                      <ArrowUpRight size={17} />
+                    </span>
+                  </div>
+                  <h3>{s.title}</h3>
+                  <p>{s.description}</p>
+                  <span className="link-arrow">
+                    Explore service <ArrowRight size={15} />
                   </span>
-                </div>
-                <h3>{s.title}</h3>
-                <p>{s.description}</p>
-                <span className="link-arrow">
-                  Explore service <ArrowRight size={15} />
-                </span>
-              </Link>
-            ))}
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>

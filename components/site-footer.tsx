@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Building2, Briefcase, BookOpen, X } from 'lucide-react'
 import { NewsletterForm } from '@/components/newsletter-form'
 
 const company: [string, string][] = [
@@ -57,19 +57,19 @@ export function SiteFooter() {
 
           <div className="footer-cols">
             <div className="footer-col">
-              <strong>Company</strong>
+              <strong><Building2 size={15} /> Company</strong>
               {company.map(([label, href]) => (
                 <Link href={href} key={href}>{label}</Link>
               ))}
             </div>
             <div className="footer-col">
-              <strong>Services</strong>
+              <strong><Briefcase size={15} /> Services</strong>
               {services.map(([label, href]) => (
                 <Link href={href} key={href}>{label}</Link>
               ))}
             </div>
             <div className="footer-col">
-              <strong>Resources</strong>
+              <strong><BookOpen size={15} /> Resources</strong>
               {resources.map(([label, href]) => (
                 <Link href={href} key={href}>{label}</Link>
               ))}

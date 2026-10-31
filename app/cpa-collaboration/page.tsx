@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Handshake, Zap, ShieldCheck } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { PageHero } from '@/components/page-hero'
@@ -16,14 +16,17 @@ const values = [
   {
     title: 'Client-first collaboration',
     text: 'Thoughtful support that keeps your team informed and your clients cared for.',
+    icon: Handshake,
   },
   {
     title: 'Responsive tax expertise',
     text: 'Fast, knowledgeable answers when your clients need dedicated tax support.',
+    icon: Zap,
   },
   {
     title: 'Professional, dependable handoff',
     text: 'A clear, respectful transfer of work that protects the client relationship you have built.',
+    icon: ShieldCheck,
   },
 ]
 
@@ -75,16 +78,22 @@ export default function CpaPage() {
             </h2>
           </div>
           <div className="svc-grid">
-            {values.map(v => (
-              <div className="svc-card" key={v.title}>
-                <span className="svc-card-num">{String(values.indexOf(v) + 1).padStart(2, '0')}</span>
-                <h3>{v.title}</h3>
-                <p>{v.text}</p>
-                <span className="link-arrow">
-                  Discuss with our team <ArrowRight size={15} />
-                </span>
-              </div>
-            ))}
+            {values.map(v => {
+              const Icon = v.icon
+              return (
+                <div className="svc-card" key={v.title}>
+                  <span className="svc-card-num">
+                    {Icon && <span className="svc-card-icon"><Icon size={16} /></span>}
+                    {String(values.indexOf(v) + 1).padStart(2, '0')}
+                  </span>
+                  <h3>{v.title}</h3>
+                  <p>{v.text}</p>
+                  <span className="link-arrow">
+                    Discuss with our team <ArrowRight size={15} />
+                  </span>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>

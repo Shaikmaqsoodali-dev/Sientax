@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, ArrowUpRight, Check, Play, Star, User, MessagesSquare, ShieldCheck, CalendarCheck, MessageSquare, Compass, FileCheck2, TrendingUp } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Check, Play, Star, User, MessagesSquare, ShieldCheck, ShieldAlert, CalendarCheck, MessageSquare, Compass, FileCheck2, TrendingUp, Clock, MapPin, Layers, Building2, Briefcase, Mail, Phone, RotateCcw, CreditCard } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { CtaBanner } from '@/components/cta-banner'
@@ -20,37 +20,42 @@ const services = [
     title: 'US Individual Tax Filing',
     description: 'Comprehensive tax filing services to ensure compliance and maximize deductions for individuals in the USA.',
     href: '/services/us-individual-tax-filing',
+    icon: 'user',
   },
   {
     number: '02',
     title: 'Tax Audit Representation',
     description: 'Expert representation to navigate tax audits and protect your financial interests with confidence.',
     href: '/services/tax-audit-representation',
+    icon: 'shield-alert',
   },
   {
     number: '03',
     title: 'Amendment Filing',
     description: 'Correct previous tax returns and optimize your financial situation with accurate amendment filings.',
     href: '/services/amendment-filing',
+    icon: 'rotate-ccw',
   },
   {
     number: '04',
     title: 'Corporate Tax',
     description: "Tailored corporate tax solutions designed to optimize your company's tax liabilities and ensure compliance.",
     href: '/services/corporate-tax',
+    icon: 'building',
   },
   {
     number: '05',
     title: 'Payroll Service',
     description: 'Efficient and accurate payroll management to keep your business compliant and employees satisfied.',
     href: '/services/payroll-service',
+    icon: 'credit-card',
   },
 ]
 
 const expectItems = [
-  ['01', 'Personal guidance', 'A dedicated advisor takes the time to understand your financial situation before recommending anything.'],
-  ['02', 'Accurate & organized', 'We prepare and review your returns with meticulous attention, keeping every document in order.'],
-  ['03', 'Year-round support', 'Tax questions do not wait for tax season — neither do we. Reach out any time.'],
+  { number: '01', title: 'Personal guidance', text: 'A dedicated advisor takes the time to understand your financial situation before recommending anything.', icon: User },
+  { number: '02', title: 'Accurate & organized', text: 'We prepare and review your returns with meticulous attention, keeping every document in order.', icon: FileCheck2 },
+  { number: '03', title: 'Year-round support', text: 'Tax questions do not wait for tax season — neither do we. Reach out any time.', icon: Clock },
 ]
 
 const supportChecks = [
@@ -122,6 +127,7 @@ const plans = [
     alt: 'High-angle view of a laptop and desk setup prepared for individual tax filing',
     features: ['Tax planning & preparation', 'E-filing across all 50 states', 'Year-round support'],
     cta: 'Explore individual tax',
+    icon: User,
   },
   {
     label: 'Business tax',
@@ -132,6 +138,7 @@ const plans = [
     alt: 'A laptop arranged with wooden cubes, representing structured business tax planning',
     features: ['Corporate tax compliance & planning', 'Payroll and year-end forms', 'Audit representation when needed'],
     cta: 'Explore business tax',
+    icon: Briefcase,
   },
 ]
 
@@ -228,16 +235,22 @@ export default function Home() {
         </div>
         <div className="hero-strip">
           <Link href="/services/us-individual-tax-filing" className="hero-strip-card">
-            <div>
-              <small>Personal Tax</small>
-              <strong>Individuals &amp; families</strong>
+            <div className="hero-strip-icon">
+              <Building2 size={16} />
+              <div>
+                <small>Personal Tax</small>
+                <strong>Individuals &amp; families</strong>
+              </div>
             </div>
             <ArrowUpRight size={18} />
           </Link>
           <Link href="/services/corporate-tax" className="hero-strip-card">
-            <div>
-              <small>Business Tax</small>
-              <strong>Companies &amp; teams</strong>
+            <div className="hero-strip-icon">
+              <Briefcase size={16} />
+              <div>
+                <small>Business Tax</small>
+                <strong>Companies &amp; teams</strong>
+              </div>
             </div>
             <ArrowUpRight size={18} />
           </Link>
@@ -280,10 +293,11 @@ export default function Home() {
                 A clear path, from first <em>call to filing.</em>
               </h2>
               <div className="expect-list">
-                {expectItems.map(([number, title, text]) => (
+                {expectItems.map(({ number, title, text, icon: Icon }) => (
                   <div className="expect-item" key={number}>
-                    <span>{number}</span>
+                    <span className="expect-num">{number}</span>
                     <div>
+                      {Icon && <div className="expect-icon"><Icon size={16} /></div>}
                       <h3>{title}</h3>
                       <p>{text}</p>
                     </div>
@@ -307,10 +321,10 @@ export default function Home() {
           </div>
           <Stats
             items={[
-              { value: 30, suffix: '+', label: 'Years of experience' },
-              { value: 50, label: 'States we e-file in' },
-              { value: 5, label: 'Core service areas' },
-              { value: 100, suffix: '%', label: 'Confidential & secure' },
+              { value: 30, suffix: '+', label: 'Years of experience', icon: 'clock' },
+              { value: 50, label: 'States we e-file in', icon: 'map' },
+              { value: 5, label: 'Core service areas', icon: 'layers' },
+              { value: 100, suffix: '%', label: 'Confidential & secure', icon: 'shield' },
             ]}
           />
         </div>
@@ -363,7 +377,7 @@ export default function Home() {
               {supportChecks.map(c => (
                 <div className="check-item" key={c.title}>
                   <span className="check-icon">
-                    <c.icon size={18} />
+                    {(() => { const Icon = c.icon; return <Icon size={18} /> })()}
                   </span>
                   <div>
                     <h3>{c.title}</h3>
@@ -397,7 +411,7 @@ export default function Home() {
               <div className={`feature-card${f.dark ? ' feature-card--dark' : ''}`} key={f.number}>
                 <div className="feature-card-top">
                   <span className="feature-card-icon">
-                    <f.icon size={20} />
+                    {(() => { const Icon = f.icon; return <Icon size={20} /> })()}
                   </span>
                   <span className="feature-card-num">0{f.number}</span>
                 </div>
@@ -471,6 +485,7 @@ export default function Home() {
             {plans.map(plan => (
               <div className="plan-card reveal reveal-up" key={plan.label}>
                 <div className="plan-top">
+                  {plan.icon && (() => { const Icon = plan.icon; return <div className="plan-icon"><Icon size={15} /></div> })()}
                   <span className="plan-label">{plan.label}</span>
                   <span className="plan-pill">{plan.pill}</span>
                 </div>

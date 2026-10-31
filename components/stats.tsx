@@ -1,12 +1,21 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { Clock, MapPin, Layers, ShieldCheck } from 'lucide-react'
+
+const statIcons: Record<string, React.ElementType> = {
+  clock: Clock,
+  map: MapPin,
+  layers: Layers,
+  shield: ShieldCheck,
+}
 
 export interface StatItem {
   value: number
   suffix?: string
   prefix?: string
   label: string
+  icon?: string
 }
 
 interface StatsProps {
@@ -53,6 +62,14 @@ export function Stats({ items }: StatsProps) {
     <div ref={ref} className="stats-bar reveal reveal-up">
       {items.map((item, i) => (
         <div className="stat" key={item.label}>
+          {item.icon && statIcons[item.icon] && (() => {
+            const Icon = statIcons[item.icon]
+            return (
+              <div className="stat-icon">
+                <Icon size={18} />
+              </div>
+            )
+          })()}
           <div className="stat-value">
             {item.prefix}
             {displayed[i]}

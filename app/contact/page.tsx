@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, CalendarCheck, Compass, FileCheck2 } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { PageHero } from '@/components/page-hero'
@@ -17,16 +17,19 @@ const steps = [
     number: '01',
     title: 'Book your consultation',
     text: 'Reserve your free initial consultation online or by phone. No commitment, no obligation.',
+    icon: CalendarCheck,
   },
   {
     number: '02',
     title: 'Get your plan',
     text: 'We take a close look at your situation and map out a tailored tax strategy.',
+    icon: Compass,
   },
   {
     number: '03',
     title: 'File with confidence',
     text: 'We handle the work, you get clarity and peace of mind.',
+    icon: FileCheck2,
   },
 ]
 
@@ -95,13 +98,17 @@ export default function ContactPage() {
             </h2>
           </div>
           <div className="steps-grid stagger">
-            {steps.map((s, i) => (
-              <div className={`step-card${i === 0 ? ' step-card--dark' : ''}`} key={s.number}>
-                <span className="step-num">{s.number}</span>
-                <h3>{s.title}</h3>
-                <p>{s.text}</p>
-              </div>
-            ))}
+            {steps.map((s, i) => {
+              const Icon = s.icon
+              return (
+                <div className={`step-card${i === 0 ? ' step-card--dark' : ''}`} key={s.number}>
+                  <span className="step-num">{s.number}</span>
+                  {Icon && <div className="step-icon"><Icon size={18} /></div>}
+                  <h3>{s.title}</h3>
+                  <p>{s.text}</p>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>

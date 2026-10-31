@@ -2,13 +2,22 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowUpRight, Plus } from 'lucide-react'
+import { ArrowUpRight, Plus, User, ShieldAlert, RotateCcw, Building2, CreditCard } from 'lucide-react'
+
+const serviceIcons: Record<string, React.ElementType> = {
+  user: User,
+  'shield-alert': ShieldAlert,
+  'rotate-ccw': RotateCcw,
+  building: Building2,
+  'credit-card': CreditCard,
+}
 
 export interface ServiceItem {
   number: string
   title: string
   description: string
   href: string
+  icon?: string
 }
 
 interface ServicesAccordionProps {
@@ -28,6 +37,14 @@ export function ServicesAccordion({ items }: ServicesAccordionProps) {
               aria-expanded={isOpen}
               onClick={() => setOpen(isOpen ? -1 : i)}
             >
+              {(() => {
+                const Icon = item.icon ? serviceIcons[item.icon] : null
+                return Icon ? (
+                  <span className="svc-item-icon">
+                    <Icon size={15} />
+                  </span>
+                ) : null
+              })()}
               <span className="svc-num">{item.number} —</span>
               <span className="svc-title">{item.title}</span>
               <span className="svc-icon">
