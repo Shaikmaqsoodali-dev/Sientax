@@ -91,12 +91,10 @@ export default function CpaPage() {
 
       <section className="section">
         <div className="band reveal reveal-scale">
-          <div className="band reveal reveal-scale">
-            <Image src="/photos/team-collab.jpg" alt="The Sientax team collaborating around a table" fill sizes="(max-width: 1240px) 100vw, 60vw" />
-            <div className="band-note">
-              <span>A partnership</span>
-              <strong>built on respect.</strong>
-            </div>
+          <Image src="/photos/wmremove-transformed.jpg" alt="Tax and financial concepts visualised for accounting partners" fill sizes="(max-width: 1240px) 100vw, 60vw" />
+          <div className="band-note">
+            <span>A partnership</span>
+            <strong>built on respect.</strong>
           </div>
         </div>
       </section>

@@ -651,10 +651,12 @@ html { scrollbar-width: thin; scrollbar-color: #c9c7ba var(--paper); }
   line-height: 1.32;
   letter-spacing: -0.02em;
   color: #fff;
-  margin: 22px 0 0;
+  margin: 0;
 }
 .testi-media { position: relative; margin-top: clamp(28px, 3vw, 38px); border-radius: var(--r); overflow: hidden; min-height: 215px; }
+.testi-media--portrait { flex: 1; min-height: 360px; }
 .testi-media > img { object-fit: cover; transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.testi-media--portrait > img { object-position: center 30%; }
 .testi-feature:hover .testi-media > img { transform: scale(1.05); }
 .testi-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(5, 15, 11, 0.88), transparent 60%); }
 .testi-media a { position: absolute; left: 20px; bottom: 18px; z-index: 2; display: inline-flex; align-items: center; gap: 10px; color: #fff; font-family: var(--font-display), sans-serif; font-size: 14px; font-weight: 600; }
@@ -1254,6 +1256,7 @@ a.strip-card:hover .strip-action svg { transform: translateX(4px); }
   .simple-cards, .testi-cards, .insight-grid { grid-template-columns: 1fr; }
   .feature-card { min-height: 0; }
   .testi-media { min-height: 190px; }
+  .testi-media--portrait { min-height: 320px; }
   .expect-panel { padding: 26px 22px; }
   .expect-media { min-height: 320px; }
   .footer { border-radius: 20px 20px 0 0; }

@@ -107,6 +107,16 @@ export default function ContactPage() {
       </section>
 
       <section className="section">
+        <div className="band reveal reveal-scale">
+          <Image src="/photos/wmremove-transformed.jpg" alt="Tax planning concepts for individuals and businesses" fill sizes="(max-width: 1240px) 100vw, 60vw" />
+          <div className="band-note">
+            <span>Let&apos;s talk</span>
+            <strong>About your taxes.</strong>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
         <div className="container">
           <div className="split">
             <div className="split-head reveal reveal-left">

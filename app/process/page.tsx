@@ -65,7 +65,7 @@ export default function ProcessPage() {
 
       <section className="section">
         <div className="band reveal reveal-scale">
-          <Image src="/photos/advisor-meeting.jpg" alt="Advisors and clients reviewing a tax plan together" fill sizes="(max-width: 1240px) 100vw, 60vw" />
+          <Image src="/photos/tax-planning-workspace.png" alt="A modern tax planning workspace with documents and a laptop" fill sizes="(max-width: 1240px) 100vw, 60vw" />
           <div className="band-note">
             <span>Every plan starts</span>
             <strong>with listening.</strong>

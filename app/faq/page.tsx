@@ -83,6 +83,16 @@ export default function FaqPage() {
       </section>
 
       <section className="section">
+        <div className="band reveal reveal-scale">
+          <Image src="/photos/payroll-concept.jpg" alt="Payroll records and tax documents organised on a desk" fill sizes="(max-width: 1240px) 100vw, 60vw" />
+          <div className="band-note">
+            <span>Clear answers</span>
+            <strong>No guesswork.</strong>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
         <div className="container">
           <div className="section-head section-head--center reveal reveal-up">
             <p className="eyebrow">Still have questions</p>

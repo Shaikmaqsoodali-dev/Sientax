@@ -191,11 +191,11 @@ export default function Home() {
       {/* ═══════════ HERO ═══════════ */}
       <section className="hero" id="top">
         <Image
-          src="/sientax-hero.png"
-          alt="Tax advisor reviewing tax documents with a client"
+          src="/photos/senior-advisor-review.jpg"
+          alt="A senior tax advisor reviewing client documents with a colleague"
           fill
           priority
-          sizes="(max-width: 900px) 100vw, 50vw"
+          sizes="100vw"
           className="hero-img"
         />
         <div className="hero-inner">
@@ -220,11 +220,6 @@ export default function Home() {
             </div>
           </div>
           <aside className="hero-aside">
-            <div className="hero-badge">
-              <Stars />
-              <strong>4.9 / 5</strong>
-              <span>Average client rating</span>
-            </div>
             <div className="hero-badge">
               <strong>30+</strong>
               <span>Years of tax expertise</span>
@@ -435,11 +430,9 @@ export default function Home() {
           </div>
           <div className="testi-grid">
             <aside className="testi-feature reveal reveal-left">
-              <div className="testi-score">4.9</div>
-              <Stars />
               <blockquote>“{testimonials[0].quote}”</blockquote>
-              <div className="testi-media">
-                <Image src="/photos/team-collab.jpg" alt="The Sientax team collaborating around a table" fill sizes="(max-width: 900px) 100vw, 40vw" />
+              <div className="testi-media testi-media--portrait">
+                <Image src="/photos/accountant-portrait.jpg" alt="A Sientax accountant reviewing figures with a calculator" fill sizes="(max-width: 900px) 100vw, 26vw" />
                 <Link href="/contact" className="testi-media-cta">
                   Book your free consultation <ArrowRight size={15} />
                 </Link>
