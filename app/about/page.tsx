@@ -65,10 +65,10 @@ export default function AboutPage() {
 
       <Stats
         items={[
-          { value: 30, suffix: '+', label: 'Years of experience', icon: 'clock' },
-          { value: 50, label: 'States we e-file in', icon: 'map' },
-          { value: 5, label: 'Core service areas', icon: 'layers' },
-          { value: 100, suffix: '%', label: 'Confidential & secure', icon: 'shield' },
+          { value: 30, suffix: '+', label: 'Years of experience' },
+          { value: 50, label: 'States we e-file in' },
+          { value: 5, label: 'Core service areas' },
+          { value: 100, suffix: '%', label: 'Confidential & secure' },
         ]}
       />
 

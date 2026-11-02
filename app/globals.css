@@ -506,24 +506,6 @@ html { scrollbar-width: thin; scrollbar-color: #c9c7ba var(--paper); }
 .expect-media { position: relative; border-radius: var(--r-lg); overflow: hidden; min-height: clamp(420px, 46vw, 560px); background: var(--paper-2); }
 .expect-media > img { object-fit: cover; transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
 .expect-media:hover > img { transform: scale(1.045); }
-.play-btn {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 76px;
-  height: 76px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.94);
-  color: var(--green);
-  display: grid;
-  place-items: center;
-  z-index: 2;
-  box-shadow: 0 16px 40px -14px rgba(0, 0, 0, 0.55);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, color 0.3s ease;
-}
-.play-btn:hover { transform: scale(1.09); background: var(--lime); color: var(--ink); }
-.play-btn svg { margin-left: 4px; }
-
 /* Stats */
 .stats-bar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 3vw, 36px); border-top: 1px solid var(--line); margin-top: clamp(34px, 4.5vw, 54px); padding-top: clamp(30px, 4vw, 46px); }
 .stat { min-width: 0; }
@@ -1172,21 +1154,6 @@ a.strip-card:hover .strip-action svg { transform: translateX(4px); }
 /* ============================================================
    ICON ACCENTS (added for clarity)
    ============================================================ */
-.stat-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  color: var(--green);
-  display: grid;
-  place-items: center;
-  margin-bottom: 12px;
-  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-.stat:hover .stat-icon { background: var(--lime); color: var(--ink); border-color: var(--lime); }
-.dark-band .stat-icon { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.16); color: var(--lime); }
-
 .expect-icon {
   width: 32px;
   height: 32px;

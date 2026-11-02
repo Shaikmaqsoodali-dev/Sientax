@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, ArrowUpRight, Check, Play, Star, User, MessagesSquare, ShieldCheck, ShieldAlert, CalendarCheck, MessageSquare, Compass, FileCheck2, TrendingUp, Clock, MapPin, Layers, Building2, Briefcase, Mail, Phone, RotateCcw, CreditCard } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Check, Star, User, MessagesSquare, ShieldCheck, ShieldAlert, CalendarCheck, MessageSquare, Compass, FileCheck2, TrendingUp, Clock, MapPin, Layers, Building2, Briefcase, Mail, Phone, RotateCcw, CreditCard } from 'lucide-react'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { CtaBanner } from '@/components/cta-banner'
@@ -310,9 +310,6 @@ export default function Home() {
             </div>
             <div className="expect-media reveal reveal-right">
               <Image src="/photos/man-with-laptop.jpg" alt="A client working on a laptop during a remote tax consultation" fill sizes="(max-width: 900px) 100vw, 45vw" />
-              <Link href="/process" className="play-btn" aria-label="See how we work">
-                <Play size={26} fill="currentColor" />
-              </Link>
               <div className="band-note">
                 <span>Every plan starts</span>
                 <strong>with listening.</strong>
@@ -321,10 +318,10 @@ export default function Home() {
           </div>
           <Stats
             items={[
-              { value: 30, suffix: '+', label: 'Years of experience', icon: 'clock' },
-              { value: 50, label: 'States we e-file in', icon: 'map' },
-              { value: 5, label: 'Core service areas', icon: 'layers' },
-              { value: 100, suffix: '%', label: 'Confidential & secure', icon: 'shield' },
+              { value: 30, suffix: '+', label: 'Years of experience' },
+              { value: 50, label: 'States we e-file in' },
+              { value: 5, label: 'Core service areas' },
+              { value: 100, suffix: '%', label: 'Confidential & secure' },
             ]}
           />
         </div>
