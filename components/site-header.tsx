@@ -14,9 +14,9 @@ const services: [string, string, string][] = [
 ]
 
 const refundStatus: [string, string][] = [
-  ['Federal', 'https://www.irs.gov/wheres-my-refund'],
-  ['Amendment', 'https://www.irs.gov/filing/wheres-my-amended-return'],
-  ['Federal & State Payments', 'https://www.irs.gov/refunds'],
+  ['Federal', 'https://sa.www4.irs.gov/wmr/'],
+  ['Amendment', 'https://sa.www4.irs.gov/wmar/'],
+  ['Federal & State Payments', 'https://www.irs.gov/payments'],
 ]
 
 const links: [string, string][] = [
