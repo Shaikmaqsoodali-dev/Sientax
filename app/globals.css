@@ -209,8 +209,7 @@ html { scrollbar-width: thin; scrollbar-color: #c9c7ba var(--paper); }
   margin-inline: auto;
   padding-inline: var(--pad);
 }
-.logo-link { display: inline-flex; align-items: center; gap: 10px; }
-.logo-link::before { content: ''; width: 10px; height: 10px; background: var(--lime); border-radius: 2px; flex: none; }
+.logo-link { display: inline-flex; align-items: center; }
 .logo-link img { display: block; height: 33px; width: auto; object-fit: contain; transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
 .logo-link:hover img { transform: scale(1.03); }
 
@@ -888,7 +887,6 @@ html { scrollbar-width: thin; scrollbar-color: #c9c7ba var(--paper); }
 .footer-inner { max-width: var(--shell); margin-inline: auto; padding: clamp(56px, 6vw, 82px) var(--pad) 0; }
 .footer-top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 2.3fr); gap: clamp(40px, 5vw, 72px); padding-bottom: clamp(40px, 5vw, 60px); }
 .footer-logo { display: inline-flex; background: #fff; padding: 11px 17px; border-radius: 11px; }
-.footer-logo::before { content: ''; width: 9px; height: 9px; background: var(--lime); border-radius: 2px; flex: none; }
 .footer-logo img { display: block; height: 30px; width: auto; object-fit: contain; transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
 .footer-logo:hover img { transform: scale(1.04); }
 .footer-brand p { color: rgba(255, 255, 255, 0.6); font-size: 15px; line-height: 1.7; max-width: 330px; margin-top: 24px; margin-bottom: 0; }
