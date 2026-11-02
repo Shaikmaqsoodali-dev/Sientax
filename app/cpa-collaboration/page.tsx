@@ -110,7 +110,7 @@ export default function CpaPage() {
 
       <CtaBanner
         eyebrow="Partner with us"
-        title="Let&apos;s make tax work <em>simpler.</em>"
+        title={<>Let&apos;s make tax work <em>simpler.</em></>}
         label="Contact the team"
         href="/contact"
       />

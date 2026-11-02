@@ -168,7 +168,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
       <CtaBanner
         eyebrow="Free consultation"
-        title="Let&apos;s make your next step <em>simpler.</em>"
+        title={<>Let&apos;s make your next step <em>simpler.</em></>}
         label="Talk to an expert"
         href="/contact"
       />

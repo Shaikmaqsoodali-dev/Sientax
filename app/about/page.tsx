@@ -98,7 +98,7 @@ export default function AboutPage() {
 
       <CtaBanner
         eyebrow="Let&apos;s work together"
-        title="Ready to take the stress out of <em>tax season?</em>"
+        title={<>Ready to take the stress out of <em>tax season?</em></>}
         label="Contact us"
         href="/contact"
       />

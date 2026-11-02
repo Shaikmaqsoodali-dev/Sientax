@@ -150,7 +150,7 @@ export default function ServicesPage() {
 
       <CtaBanner
         eyebrow="Start with a conversation"
-        title="Not sure which service fits? <em>Let&apos;s talk it through.</em>"
+        title={<>Not sure which service fits? <em>Let&apos;s talk it through.</em></>}
         label="Book your free consultation"
         href="/contact"
       />
