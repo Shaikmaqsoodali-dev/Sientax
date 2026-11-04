@@ -9,9 +9,33 @@ import { hashToken } from '@/lib/crypto/pii'
 import { notifyEmployee } from '@/lib/services/notifications'
 import { appendHistory } from '@/lib/services/history'
 import { sendEmail } from '@/lib/email'
+import { passwordResetEmailHtml, verificationEmailHtml } from '@/lib/email/templates'
 import { allocateFileNo } from '@/lib/services/file-no'
+import { assignDefaultConsultant } from '@/lib/services/assign-consultant'
 
-export type ActionResult = { ok: true } | { ok: false; error: string }
+export type ActionResult = { ok: true; message?: string } | { ok: false; error: string }
+
+function appBaseUrl() {
+  return (process.env.APP_URL || 'http://localhost:3000').replace(/\/$/, '')
+}
+
+async function issueEmailVerification(clientId: number, email: string, firstName: string) {
+  const token = nanoid(48)
+  const expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24)
+  await db.insert(passwordResetTokens).values({
+    portal: 'email_verify',
+    subjectId: clientId,
+    email,
+    tokenHash: hashToken(token),
+    expiresAt,
+  })
+  const verifyUrl = `${appBaseUrl()}/verify-email?token=${token}`
+  await sendEmail({
+    to: email,
+    subject: 'Verify your Sientax email',
+    html: verificationEmailHtml({ firstName, verifyUrl }),
+  })
+}
 
 export async function clientLoginAction(formData: FormData): Promise<ActionResult> {
   const email = String(formData.get('email') || '').trim().toLowerCase()
@@ -26,6 +50,13 @@ export async function clientLoginAction(formData: FormData): Promise<ActionResul
   if (!check.ok) return { ok: false, error: 'Invalid email or password' }
   if (check.needsRehash) {
     await db.update(clients).set({ passwordHash: await hashPassword(password) }).where(eq(clients.id, user.id))
+  }
+
+  if (!user.emailVerified) {
+    return {
+      ok: false,
+      error: 'Verify your email before signing in. Check your inbox, or use Resend verification below.',
+    }
   }
 
   const year = user.year || new Date().getFullYear()
@@ -93,19 +124,24 @@ export async function signupAction(formData: FormData): Promise<ActionResult> {
   const password = String(formData.get('password') || '')
   const timeZone = String(formData.get('timeZone') || 'PT')
   const pref = String(formData.get('pref') || 'morning')
-  const empId = Number(formData.get('empId') || 0)
   const referral = String(formData.get('ref') || '0').trim() || '0'
   const year = new Date().getFullYear()
 
-  if (!firstName || !lastName || !email || !password || !empId) {
+  if (!firstName || !lastName || !email || !password || password.length < 6 || !phone) {
     return { ok: false, error: 'Please fill all required fields' }
   }
 
   const existing = await db.select().from(clients).where(eq(clients.email, email)).limit(1)
   if (existing[0]) return { ok: false, error: 'An account with this email already exists' }
 
-  const fileNo = await allocateFileNo(year)
+  let empId: number
+  try {
+    empId = await assignDefaultConsultant(year)
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : 'Unable to assign a consultant' }
+  }
 
+  const fileNo = await allocateFileNo(year)
   const passwordHash = await hashPassword(password)
   const [client] = await db
     .insert(clients)
@@ -123,6 +159,7 @@ export async function signupAction(formData: FormData): Promise<ActionResult> {
       timeZone,
       pref,
       role: 'client',
+      emailVerified: false,
     })
     .returning()
 
@@ -149,17 +186,40 @@ export async function signupAction(formData: FormData): Promise<ActionResult> {
     remark: `Assigned to employee #${empId}`,
   })
 
-  await setSessionCookie('client', {
-    sub: `client:${client.id}`,
-    portal: 'client',
-    role: 'client',
-    name: `${firstName} ${lastName}`.trim(),
-    email,
-    clientId: client.id,
-    taxYear: year,
-  })
+  await issueEmailVerification(client.id, email, firstName)
+  redirect(`/signup/check-email?email=${encodeURIComponent(email)}`)
+}
 
-  redirect('/app')
+export async function resendVerificationAction(formData: FormData): Promise<ActionResult> {
+  const email = String(formData.get('email') || '').trim().toLowerCase()
+  if (!email) return { ok: false, error: 'Email is required' }
+
+  const rows = await db.select().from(clients).where(eq(clients.email, email)).limit(1)
+  const user = rows[0]
+  if (!user) return { ok: true, message: 'If an account exists, a verification email is on the way.' }
+  if (user.emailVerified) return { ok: true, message: 'This email is already verified. You can sign in.' }
+
+  await issueEmailVerification(user.id, user.email, user.firstName)
+  return { ok: true, message: 'Verification email sent. Check your inbox.' }
+}
+
+export async function verifyEmailAction(token: string): Promise<ActionResult> {
+  if (!token) return { ok: false, error: 'Missing verification token' }
+
+  const tokenHash = hashToken(token)
+  const rows = await db
+    .select()
+    .from(passwordResetTokens)
+    .where(and(eq(passwordResetTokens.tokenHash, tokenHash), eq(passwordResetTokens.portal, 'email_verify')))
+    .limit(1)
+  const row = rows[0]
+  if (!row || row.usedAt || row.expiresAt < new Date()) {
+    return { ok: false, error: 'This verification link is invalid or has expired.' }
+  }
+
+  await db.update(clients).set({ emailVerified: true }).where(eq(clients.id, row.subjectId))
+  await db.update(passwordResetTokens).set({ usedAt: new Date() }).where(eq(passwordResetTokens.id, row.id))
+  return { ok: true, message: 'Email verified. You can sign in now.' }
 }
 
 export async function referSignupAction(formData: FormData): Promise<ActionResult> {
@@ -190,6 +250,7 @@ export async function referSignupAction(formData: FormData): Promise<ActionResul
       fileNo: code,
       year: new Date().getFullYear(),
       role: 'refer',
+      emailVerified: true,
     })
     .returning()
 
@@ -213,7 +274,7 @@ export async function forgotPasswordAction(formData: FormData): Promise<ActionRe
   let subjectId = 0
   if (portal === 'client') {
     const rows = await db.select().from(clients).where(eq(clients.email, email)).limit(1)
-    if (!rows[0]) return { ok: true } // do not leak
+    if (!rows[0]) return { ok: true }
     subjectId = rows[0].id
   } else {
     const rows = await db.select().from(employees).where(eq(employees.email, email)).limit(1)
@@ -231,14 +292,13 @@ export async function forgotPasswordAction(formData: FormData): Promise<ActionRe
     expiresAt,
   })
 
-  const base = process.env.APP_URL || 'http://localhost:3000'
-  const link = `${base}/reset-password?token=${token}&portal=${portal}`
+  const link = `${appBaseUrl()}/reset-password?token=${token}&portal=${portal}`
   await sendEmail({
     to: email,
     subject: 'Reset your Sientax password',
-    html: `<p>Click to reset your password:</p><p><a href="${link}">${link}</a></p><p>This link expires in 1 hour.</p>`,
+    html: passwordResetEmailHtml({ resetUrl: link }),
   })
-  return { ok: true }
+  return { ok: true, message: 'If an account exists, a reset link is on the way.' }
 }
 
 export async function resetPasswordAction(formData: FormData): Promise<ActionResult> {
@@ -263,7 +323,7 @@ export async function resetPasswordAction(formData: FormData): Promise<ActionRes
     await db.update(employees).set({ passwordHash }).where(eq(employees.id, row.subjectId))
   }
   await db.update(passwordResetTokens).set({ usedAt: new Date() }).where(eq(passwordResetTokens.id, row.id))
-  return { ok: true }
+  return { ok: true, message: 'Password updated. You can sign in now.' }
 }
 
 export async function listConsultants() {

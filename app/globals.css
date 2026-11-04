@@ -309,7 +309,18 @@ html { scrollbar-width: thin; scrollbar-color: #c9c7ba var(--paper); }
 .nav-menu-link small { display: block; color: var(--ink-mute); font-size: 12.5px; font-weight: 400; margin-top: 2px; line-height: 1.45; }
 .nav-menu-foot { display: block; margin-top: 6px; padding: 12px 14px; border-top: 1px solid var(--line); font-size: 13.5px; font-weight: 600; font-family: var(--font-display), sans-serif; color: var(--green); display: flex; align-items: center; gap: 8px; }
 
-.header-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+.header-actions { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+.header-login {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-display), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  padding: 8px 6px;
+  transition: color 0.2s ease;
+}
+.header-login:hover { color: var(--green); }
 .menu-toggle {
   display: none;
   align-items: center;

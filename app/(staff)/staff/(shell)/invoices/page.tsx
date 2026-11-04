@@ -11,10 +11,21 @@ export default async function StaffInvoicesPage() {
   const rows = await db.select().from(invoices).orderBy(desc(invoices.id)).limit(200)
 
   return (
-    <div className="dash-card">
-      <h2 style={{ marginTop: 0, fontSize: 22 }}>Invoices</h2>
+    <>
+      <div className="dash-page-head">
+        <div className="dash-page-head-copy">
+          <p className="dash-eyebrow">Workspace</p>
+          <h2>Invoices</h2>
+          <div className="dash-page-head-desc">Build firm invoices and track payment status.</div>
+        </div>
+      </div>
+      <div className="dash-card">
       <InvoiceBuilder year={session.taxYear} />
-      <h3 style={{ marginTop: 28 }}>All invoices</h3>
+      </div>
+      <div className="dash-card dash-card--flush">
+      <div style={{ padding: '16px 18px 0' }}>
+        <h3 style={{ margin: 0, fontSize: 18 }}>All invoices</h3>
+      </div>
       <table className="dash-table">
         <thead>
           <tr>
@@ -43,6 +54,7 @@ export default async function StaffInvoicesPage() {
           ))}
         </tbody>
       </table>
-    </div>
+      </div>
+    </>
   )
 }

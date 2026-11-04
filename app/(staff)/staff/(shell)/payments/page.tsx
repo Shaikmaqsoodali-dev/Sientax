@@ -12,9 +12,15 @@ export default async function StaffPaymentsPage() {
   const openInvoices = await db.select().from(invoices).where(eq(invoices.paymentStatus, 'none')).limit(100)
 
   return (
-    <div className="dash-card">
-      <h2 style={{ marginTop: 0, fontSize: 22 }}>Payment ledger</h2>
-      <p className="dash-muted">Record Zelle / Other payments and mark invoices paid. No card processors.</p>
+    <>
+      <div className="dash-page-head">
+        <div className="dash-page-head-copy">
+          <p className="dash-eyebrow">Workspace</p>
+          <h2>Payment ledger</h2>
+          <div className="dash-page-head-desc">Record Zelle / Other payments and mark invoices paid. No card processors.</div>
+        </div>
+      </div>
+      <div className="dash-card">
       <AuthForm action={recordPaymentAction} submitLabel="Record payment">
         <div className="dash-grid-2">
           <label>
@@ -69,8 +75,11 @@ export default async function StaffPaymentsPage() {
           <input name="remarks" />
         </label>
       </AuthForm>
-
-      <h3 style={{ marginTop: 28 }}>Recent payments</h3>
+      </div>
+      <div className="dash-card dash-card--flush">
+      <div style={{ padding: '16px 18px 0' }}>
+        <h3 style={{ margin: 0, fontSize: 18 }}>Recent payments</h3>
+      </div>
       <table className="dash-table">
         <thead>
           <tr>
@@ -95,6 +104,7 @@ export default async function StaffPaymentsPage() {
           ))}
         </tbody>
       </table>
-    </div>
+      </div>
+    </>
   )
 }

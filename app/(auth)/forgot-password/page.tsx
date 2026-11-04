@@ -15,18 +15,18 @@ export default async function ForgotPasswordPage({
   return (
     <div className="dash-auth">
       <div className="dash-auth-card">
-        <p className="dash-brand">Sientax</p>
+        <p className="dash-eyebrow">{portal === 'staff' ? 'Staff' : 'Client'}</p>
         <h1>Forgot password</h1>
         <p className="dash-muted">We will email a reset link if an account exists.</p>
         <AuthForm action={forgotPasswordAction} submitLabel="Send reset link">
           <input type="hidden" name="portal" value={portal} />
           <label>
             Email
-            <input name="email" type="email" required />
+            <input name="email" type="email" required autoComplete="email" />
           </label>
         </AuthForm>
         <p className="dash-auth-links">
-          <Link href={portal === 'staff' ? '/staff/login' : '/login'}>Back to login</Link>
+          <Link href={portal === 'staff' ? '/staff/login' : '/login'}>Back to log in</Link>
         </p>
       </div>
     </div>

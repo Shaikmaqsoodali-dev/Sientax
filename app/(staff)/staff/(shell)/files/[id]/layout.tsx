@@ -4,6 +4,7 @@ import { getTaxFileById, listEmployeesAction } from '@/lib/actions/files'
 import { canAccessFile } from '@/lib/rbac'
 import { FileTabs } from '@/components/dashboard/file-tabs'
 import { TransferDrawer } from '@/components/dashboard/transfer-drawer'
+import { PageHeader } from '@/components/dashboard/page-header'
 
 export default async function FileWorkspaceLayout({
   children,
@@ -21,26 +22,23 @@ export default async function FileWorkspaceLayout({
   const employees = await listEmployeesAction()
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap', marginBottom: 8 }}>
-        <div>
-          <h2 style={{ margin: 0, fontSize: 22 }}>
-            {row.client.firstName} {row.client.lastName} · {row.file.fileNo}
-          </h2>
-          <p className="dash-muted" style={{ margin: '4px 0 0' }}>
-            {row.file.stage} / {row.file.substage} · Year {row.file.year}
-          </p>
-        </div>
-        <TransferDrawer
-          fileId={row.file.id}
-          employees={employees.filter((e) => e.login.toLowerCase() !== 'admin')}
-          currentStage={row.file.stage}
-          currentSubstage={row.file.substage}
-          currentEmpId={row.file.empId}
-        />
-      </div>
+    <>
+      <PageHeader
+        eyebrow={`File ${row.file.fileNo} · ${row.file.year}`}
+        title={`${row.client.firstName} ${row.client.lastName}`}
+        description={`${row.file.stage} / ${row.file.substage}`}
+        actions={
+          <TransferDrawer
+            fileId={row.file.id}
+            employees={employees.filter((e) => e.login.toLowerCase() !== 'admin')}
+            currentStage={row.file.stage}
+            currentSubstage={row.file.substage}
+            currentEmpId={row.file.empId}
+          />
+        }
+      />
       <FileTabs fileId={row.file.id} />
       {children}
-    </div>
+    </>
   )
 }

@@ -186,6 +186,7 @@ export async function staffRegisterClientAction(formData: FormData) {
       timeZone,
       pref,
       role: 'client',
+      emailVerified: true,
     })
     .returning()
 

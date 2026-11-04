@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { AuthForm } from '@/components/dashboard/auth-form'
 import { staffLoginAction } from '@/lib/actions/auth'
@@ -10,13 +11,21 @@ export default function StaffLoginPage() {
   return (
     <div className="dash-auth">
       <div className="dash-auth-card">
-        <p className="dash-brand">Sientax</p>
-        <h1>Staff login</h1>
-        <p className="dash-muted">Employee and admin access. Separate from client login.</p>
+        <Image
+          src="/Sientax-Logo-2024-01-1.webp"
+          alt="Sientax"
+          width={150}
+          height={38}
+          className="dash-auth-logo"
+          priority
+        />
+        <p className="dash-eyebrow">Staff workspace</p>
+        <h1>Sign in</h1>
+        <p className="dash-muted">Employee and admin access. Separate from the client portal.</p>
         <AuthForm action={staffLoginAction} submitLabel="Sign in">
           <label>
             Login ID
-            <input name="login" required autoComplete="username" />
+            <input name="login" required autoComplete="username" placeholder="email or username" />
           </label>
           <label>
             Password

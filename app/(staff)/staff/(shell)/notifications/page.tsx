@@ -28,8 +28,14 @@ export default async function NotificationsPage() {
   }
 
   return (
-    <div className="dash-card">
-      <h2 style={{ marginTop: 0, fontSize: 22 }}>Notifications</h2>
+    <>
+      <div className="dash-page-head">
+        <div className="dash-page-head-copy">
+          <p className="dash-eyebrow">Workspace</p>
+          <h2>Notifications</h2>
+        </div>
+      </div>
+      <div className="dash-card dash-card--flush">
       <table className="dash-table">
         <thead>
           <tr>
@@ -53,11 +59,14 @@ export default async function NotificationsPage() {
           })}
           {!rows.length && (
             <tr>
-              <td colSpan={4}>No notifications</td>
+              <td colSpan={4} className="dash-empty">
+                No notifications
+              </td>
             </tr>
           )}
         </tbody>
       </table>
-    </div>
+      </div>
+    </>
   )
 }

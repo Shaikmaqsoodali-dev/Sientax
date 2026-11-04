@@ -193,8 +193,11 @@ export function SiteHeader() {
           </Link>
 
           <div className="mobile-actions">
-            <Link href="/contact" className="btn btn--green" onClick={() => setOpen(false)}>
-              Book a free consultation <ArrowRight size={16} />
+            <Link href="/login" className="btn btn--light" onClick={() => setOpen(false)}>
+              Log in
+            </Link>
+            <Link href="/signup" className="btn btn--green" onClick={() => setOpen(false)}>
+              Sign up <ArrowRight size={16} />
             </Link>
             <div className="mobile-contact">
               <a href="tel:+18005550199">+1 (800) 555-0199</a>
@@ -204,8 +207,11 @@ export function SiteHeader() {
         </nav>
 
         <div className="header-actions">
-          <Link href="/contact" className="btn btn--green btn--sm">
-            Book a consultation <ArrowRight size={15} />
+          <Link href="/login" className="header-login">
+            Log in
+          </Link>
+          <Link href="/signup" className="btn btn--green btn--sm">
+            Sign up <ArrowRight size={15} />
           </Link>
         </div>
 

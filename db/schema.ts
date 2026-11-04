@@ -50,6 +50,7 @@ export const clients = pgTable(
     timeZone: varchar('time_zone', { length: 255 }).notNull().default('none'),
     pref: varchar('pref', { length: 255 }).notNull().default('none'),
     role: portalRoleEnum('role').notNull().default('client'),
+    emailVerified: boolean('email_verified').notNull().default(false),
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   },
   (t) => [index('clients_email_idx').on(t.email), index('clients_file_no_idx').on(t.fileNo)],

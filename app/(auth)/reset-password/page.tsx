@@ -15,18 +15,19 @@ export default async function ResetPasswordPage({
   return (
     <div className="dash-auth">
       <div className="dash-auth-card">
-        <p className="dash-brand">Sientax</p>
+        <p className="dash-eyebrow">{portal === 'staff' ? 'Staff' : 'Client'}</p>
         <h1>Reset password</h1>
+        <p className="dash-muted">Choose a new password for your account.</p>
         <AuthForm action={resetPasswordAction} submitLabel="Update password">
           <input type="hidden" name="token" value={sp.token || ''} />
           <input type="hidden" name="portal" value={portal} />
           <label>
             New password
-            <input name="password" type="password" required minLength={6} />
+            <input name="password" type="password" required minLength={6} autoComplete="new-password" />
           </label>
         </AuthForm>
         <p className="dash-auth-links">
-          <Link href={portal === 'staff' ? '/staff/login' : '/login'}>Back to login</Link>
+          <Link href={portal === 'staff' ? '/staff/login' : '/login'}>Back to log in</Link>
         </p>
       </div>
     </div>
