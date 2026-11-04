@@ -25,7 +25,7 @@ export default async function ClientInterviewPage() {
         title="Interview sheet"
         description="Answer these questions so your consultant can prepare an accurate return."
       />
-      <div className="dash-card" style={{ maxWidth: 720 }}>
+      <div className="dash-card">
         <InterviewForm
           portal="client"
           fileNo={file.fileNo}
