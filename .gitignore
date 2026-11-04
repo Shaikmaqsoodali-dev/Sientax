@@ -17,7 +17,17 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files
-.env*
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# local uploads
+.uploads/
+
+# large DB dumps (import via scripts/db:import locally)
+*.sql
+!drizzle/**/*.sql
 
 # vercel
 .vercel

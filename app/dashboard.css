@@ -1,0 +1,243 @@
+/* Dashboard chrome — uses brand tokens from globals.css */
+
+.dash-auth {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 16px;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(130, 203, 5, 0.18), transparent 55%),
+    linear-gradient(160deg, #f7f6f1 0%, #ebe8de 45%, #e3efe8 100%);
+}
+
+.dash-auth-card {
+  width: min(440px, 100%);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-2);
+}
+
+.dash-auth-wide { width: min(560px, 100%); }
+
+.dash-brand {
+  font-family: var(--font-display), sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--green);
+  margin: 0 0 8px;
+  letter-spacing: -0.03em;
+}
+
+.dash-auth h1 {
+  font-size: 28px;
+  margin: 0 0 8px;
+}
+
+.dash-muted { color: var(--ink-soft); margin: 0 0 20px; font-size: 14px; }
+
+.dash-form { display: grid; gap: 12px; }
+.dash-form label { display: grid; gap: 6px; font-size: 13px; color: var(--ink-soft); font-weight: 500; }
+.dash-form input,
+.dash-form select,
+.dash-form textarea {
+  width: 100%;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--white);
+}
+.dash-form textarea { min-height: 100px; resize: vertical; }
+.dash-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 560px) { .dash-grid-2 { grid-template-columns: 1fr; } }
+
+.dash-error {
+  margin: 0;
+  color: #9b1c1c;
+  background: #fde8e8;
+  border-radius: var(--r-sm);
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.dash-auth-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 0 0;
+  font-size: 13px;
+  color: var(--green-mid);
+}
+.dash-auth-links a:hover { text-decoration: underline; }
+
+.dash-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  background: var(--paper);
+}
+@media (max-width: 900px) {
+  .dash-shell { grid-template-columns: 1fr; }
+  .dash-sidebar { position: sticky; top: 0; z-index: 20; }
+}
+
+.dash-sidebar {
+  background: var(--green-deep);
+  color: var(--on-dark);
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dash-sidebar .dash-brand { color: var(--lime); font-size: 22px; }
+.dash-nav { display: flex; flex-direction: column; gap: 2px; margin-top: 12px; }
+.dash-nav a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: 10px;
+  color: var(--on-dark-soft);
+  font-size: 14px;
+}
+.dash-nav a:hover,
+.dash-nav a[data-active='true'] {
+  background: rgba(255,255,255,0.08);
+  color: var(--on-dark);
+}
+.dash-nav .badge {
+  background: var(--lime);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.dash-nav-group {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--on-dark-line);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--on-dark-soft);
+  padding-left: 12px;
+}
+
+.dash-main { display: flex; flex-direction: column; min-width: 0; }
+.dash-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 22px;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+}
+.dash-topbar h1 { font-size: 20px; margin: 0; }
+.dash-topbar-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.dash-clocks { display: flex; gap: 10px; font-size: 12px; color: var(--ink-soft); }
+.dash-clocks span { white-space: nowrap; }
+.dash-year { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-soft); }
+.dash-year select {
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  padding: 6px 8px;
+  background: white;
+}
+
+.dash-content { padding: 22px; }
+.dash-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 18px;
+  box-shadow: var(--shadow-1);
+}
+.dash-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.dash-table th, .dash-table td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.dash-table th { color: var(--ink-soft); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+.dash-table a { color: var(--green-mid); }
+.dash-table a:hover { text-decoration: underline; }
+
+.dash-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.dash-tabs a {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.dash-tabs a[data-active='true'] {
+  background: var(--green);
+  border-color: var(--green);
+  color: white;
+}
+
+.dash-timeline { display: grid; gap: 0; margin: 16px 0; }
+.dash-timeline-step {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  position: relative;
+}
+.dash-timeline-step::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 28px;
+  bottom: -4px;
+  width: 2px;
+  background: var(--line-strong);
+}
+.dash-timeline-step:last-child::before { display: none; }
+.dash-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--line-strong);
+  background: white;
+  z-index: 1;
+}
+.dash-dot[data-done='true'] { background: var(--lime); border-color: var(--lime-deep); }
+.dash-dot[data-current='true'] { border-color: var(--green); box-shadow: 0 0 0 4px rgba(14,65,50,0.12); }
+
+.dash-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.dash-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: var(--green);
+  color: white;
+}
+.dash-btn.secondary { background: white; color: var(--ink); border-color: var(--line-strong); }
+.dash-btn.danger { background: #9b1c1c; }
+.dash-search {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.dash-search input {
+  flex: 1;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+}
