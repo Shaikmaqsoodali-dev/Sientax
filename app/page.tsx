@@ -198,8 +198,8 @@ export default function Home() {
       {/* ═══════════ HERO ═══════════ */}
       <section className="hero" id="top">
         <Image
-          src="/photos/senior-advisor-review.jpg"
-          alt="A senior tax advisor reviewing client documents with a colleague"
+          src="/photos/planning-session.jpg"
+          alt="Tax planning session with advisor and client reviewing documents"
           fill
           priority
           sizes="100vw"
