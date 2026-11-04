@@ -220,6 +220,23 @@ export async function resendVerificationAction(formData: FormData): Promise<Acti
   return { ok: true, message: 'Verification email sent. Check your inbox.' }
 }
 
+async function signInClientById(clientId: number) {
+  const [user] = await db.select().from(clients).where(eq(clients.id, clientId)).limit(1)
+  if (!user) return null
+
+  const year = user.year || new Date().getFullYear()
+  await setSessionCookie('client', {
+    sub: `client:${user.id}`,
+    portal: 'client',
+    role: user.role === 'refer' ? 'refer' : 'client',
+    name: `${user.firstName} ${user.lastName}`.trim(),
+    email: user.email,
+    clientId: user.id,
+    taxYear: year,
+  })
+  return user
+}
+
 export async function verifyEmailAction(token: string): Promise<ActionResult> {
   if (!token) return { ok: false, error: 'Missing verification token' }
 
@@ -230,13 +247,28 @@ export async function verifyEmailAction(token: string): Promise<ActionResult> {
     .where(and(eq(passwordResetTokens.tokenHash, tokenHash), eq(passwordResetTokens.portal, 'email_verify')))
     .limit(1)
   const row = rows[0]
-  if (!row || row.usedAt || row.expiresAt < new Date()) {
+  if (!row || row.expiresAt < new Date()) {
     return { ok: false, error: 'This verification link is invalid or has expired.' }
   }
 
-  await db.update(clients).set({ emailVerified: true }).where(eq(clients.id, row.subjectId))
+  // Already used: still sign them in if the account is verified.
+  if (row.usedAt) {
+    const user = await signInClientById(row.subjectId)
+    if (user?.emailVerified) {
+      if (user.role === 'refer' || user.registeredBy === 'refer') redirect('/app/refer')
+      redirect('/app')
+    }
+    return { ok: false, error: 'This verification link is invalid or has expired.' }
+  }
+
+  const user = await signInClientById(row.subjectId)
+  if (!user) return { ok: false, error: 'This verification link is invalid or has expired.' }
+
+  await db.update(clients).set({ emailVerified: true }).where(eq(clients.id, user.id))
   await db.update(passwordResetTokens).set({ usedAt: new Date() }).where(eq(passwordResetTokens.id, row.id))
-  return { ok: true, message: 'Email verified. You can sign in now.' }
+
+  if (user.role === 'refer' || user.registeredBy === 'refer') redirect('/app/refer')
+  redirect('/app')
 }
 
 export async function referSignupAction(formData: FormData): Promise<ActionResult> {
