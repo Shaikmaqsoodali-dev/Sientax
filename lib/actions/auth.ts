@@ -16,7 +16,13 @@ import { assignDefaultConsultant } from '@/lib/services/assign-consultant'
 export type ActionResult = { ok: true; message?: string } | { ok: false; error: string }
 
 function appBaseUrl() {
-  return (process.env.APP_URL || 'http://localhost:3000').replace(/\/$/, '')
+  const explicit = process.env.APP_URL || process.env.BETTER_AUTH_URL
+  if (explicit) return explicit.replace(/\/$/, '')
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL.replace(/\/$/, '')}`
+  }
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL.replace(/\/$/, '')}`
+  return 'http://localhost:3000'
 }
 
 async function issueEmailVerification(clientId: number, email: string, firstName: string) {
@@ -186,7 +192,18 @@ export async function signupAction(formData: FormData): Promise<ActionResult> {
     remark: `Assigned to employee #${empId}`,
   })
 
-  await issueEmailVerification(client.id, email, firstName)
+  try {
+    await issueEmailVerification(client.id, email, firstName)
+  } catch (err) {
+    console.error('[signup:verify-email]', err)
+    return {
+      ok: false,
+      error:
+        err instanceof Error
+          ? `Account created, but verification email failed: ${err.message}. Use Resend verification on the login page.`
+          : 'Account created, but verification email failed. Use Resend verification on the login page.',
+    }
+  }
   redirect(`/signup/check-email?email=${encodeURIComponent(email)}`)
 }
 

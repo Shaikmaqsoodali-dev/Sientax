@@ -8,7 +8,14 @@ type Props = {
   ) => Promise<{ ok: true; message?: string; [key: string]: unknown } | { ok: false; error: string } | void>
   children: React.ReactNode
   submitLabel: string
-  successClassName?: string
+}
+
+function explainError(err: unknown): string {
+  const msg = err instanceof Error ? err.message : String(err || '')
+  if (/failed to find server action|was not found on the server/i.test(msg)) {
+    return 'This page is out of date after a deploy. Refresh once, then try again.'
+  }
+  return msg || 'Something went wrong'
 }
 
 export function AuthForm({ action, children, submitLabel }: Props) {
@@ -32,7 +39,7 @@ export function AuthForm({ action, children, submitLabel }: Props) {
           } catch (err) {
             // Re-throw Next.js redirects
             if (err && typeof err === 'object' && 'digest' in err) throw err
-            setError(err instanceof Error ? err.message : 'Something went wrong')
+            setError(explainError(err))
           }
         })
       }}
