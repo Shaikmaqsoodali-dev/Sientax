@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { AuthForm } from '@/components/dashboard/auth-form'
-import { clientLoginAction, resendVerificationAction } from '@/lib/actions/auth'
+import { clientLoginAction } from '@/lib/actions/auth'
 
 export const metadata = { title: 'Log in' }
 
@@ -39,17 +39,6 @@ export default function ClientLoginPage() {
             <Link href="/forgot-password">Forgot password?</Link>
             <Link href="/signup">Create an account</Link>
           </p>
-          <div style={{ marginTop: 22, paddingTop: 18, borderTop: '1px solid var(--line)' }}>
-            <p className="dash-muted" style={{ marginBottom: 10, fontSize: 13 }}>
-              Need another verification email?
-            </p>
-            <AuthForm action={resendVerificationAction} submitLabel="Resend verification">
-              <label>
-                Email
-                <input name="email" type="email" required autoComplete="email" />
-              </label>
-            </AuthForm>
-          </div>
         </div>
       </div>
     </div>

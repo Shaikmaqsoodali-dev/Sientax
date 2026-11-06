@@ -30,7 +30,7 @@ export default async function FileWorkspaceLayout({
         actions={
           <TransferDrawer
             fileId={row.file.id}
-            employees={employees.filter((e) => e.login.toLowerCase() !== 'admin')}
+            employees={employees.filter((e) => e.active && !e.isAdmin && e.login.toLowerCase() !== 'admin')}
             currentStage={row.file.stage}
             currentSubstage={row.file.substage}
             currentEmpId={row.file.empId}

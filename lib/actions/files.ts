@@ -760,13 +760,20 @@ export async function createEmployeeAction(formData: FormData) {
   const session = await getSession('staff')
   if (!session) return { ok: false as const, error: 'Unauthorized' }
   assertAdmin(session)
-  const firstName = String(formData.get('firstName') || '')
-  const lastName = String(formData.get('lastName') || '')
-  const login = String(formData.get('login') || '')
-  const email = String(formData.get('email') || '')
-  const phone = String(formData.get('phone') || '')
+  const firstName = String(formData.get('firstName') || '').trim()
+  const lastName = String(formData.get('lastName') || '').trim()
+  const login = String(formData.get('login') || '').trim().toLowerCase()
+  const email = String(formData.get('email') || '').trim().toLowerCase() || login
+  const phone = String(formData.get('phone') || '').trim()
   const password = String(formData.get('password') || '')
+  const role = String(formData.get('role') || 'employee')
+  const isAdminRole = role === 'admin' || login === 'admin'
   if (!firstName || !lastName || !login || !password) return { ok: false as const, error: 'Required fields missing' }
+  if (password.length < 6) return { ok: false as const, error: 'Password must be at least 6 characters' }
+
+  const existing = await db.select({ id: employees.id }).from(employees).where(eq(employees.login, login)).limit(1)
+  if (existing[0]) return { ok: false as const, error: 'That login ID is already in use' }
+
   await db.insert(employees).values({
     firstName,
     lastName,
@@ -774,10 +781,15 @@ export async function createEmployeeAction(formData: FormData) {
     email,
     phone,
     passwordHash: await hashPassword(password),
-    isAdmin: login.toLowerCase() === 'admin',
+    isAdmin: isAdminRole,
+    active: true,
   })
   revalidatePath('/staff/employees')
-  return { ok: true as const }
+  revalidatePath('/staff')
+  return {
+    ok: true as const,
+    message: `${isAdminRole ? 'Admin' : 'Employee'} created. They can sign in at /staff/login with login “${login}”.`,
+  }
 }
 
 export async function markNotificationsReadAction() {

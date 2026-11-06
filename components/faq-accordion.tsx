@@ -36,7 +36,7 @@ export function FaqAccordion({ items, columns = 1, defaultOpen = 0 }: FaqAccordi
             const idx = chunk.start + i
             const isOpen = open === idx
             return (
-              <div className={`faq-item reveal reveal-up${isOpen ? ' is-open' : ''}`} key={question}>
+              <div className={`faq-item${isOpen ? ' is-open' : ''}`} key={question}>
                 <button
                   aria-expanded={isOpen}
                   onClick={() => setOpen(isOpen ? -1 : idx)}

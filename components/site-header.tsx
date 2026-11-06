@@ -15,6 +15,7 @@ const services: [string, string, string][] = [
 
 const refundStatus: [string, string][] = [
   ['Federal', 'https://sa.www4.irs.gov/wmr/'],
+  ['State', 'https://www.officialpayments.com/index.jsp'],
   ['Amendment', 'https://sa.www4.irs.gov/wmar/'],
   ['Federal & State Payments', 'https://www.irs.gov/payments'],
 ]

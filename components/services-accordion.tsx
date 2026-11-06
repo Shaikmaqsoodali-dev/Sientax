@@ -32,7 +32,7 @@ export function ServicesAccordion({ items }: ServicesAccordionProps) {
       {items.map((item, i) => {
         const isOpen = open === i
         return (
-          <div className={`svc-row reveal reveal-up${isOpen ? ' is-open' : ''}`} key={item.href}>
+          <div className={`svc-row${isOpen ? ' is-open' : ''}`} key={item.href}>
             <button
               aria-expanded={isOpen}
               onClick={() => setOpen(isOpen ? -1 : i)}
